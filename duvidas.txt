@@ -1,0 +1,69 @@
+-> Turmas
+-> Questionarios
+-> Notas / Avaliacoes
+
+
+#Fases (Abas do sistema)
+
+-> 1
+Leitura do materia e criacao dos exercicios (envio dentro do sistema?)
+Quantidade de membros da equipe definido pelo professor e prazo tbm
+sistema tem que identificar o limite de tempo para entrega
+ferramenta multi-uso, para varias disciplinas
+
+-> 2
+sistema tera outro periodo para resposta do questionario de outra equipe (questionario e objetivo?)
+sistema faz um sorteio automatico
+equipe qualifica o questionario (e,i,r,mr)
+
+-> 3
+Equipe decide se participa do desafio de 3 questoes a mais, feitas pelo professor, definidas em 3 listas diferentes, o sistema que tem que sortear
+mesmo tempo da fase dois
+
+-> 4
+Nova data e novo periodo de tempo
+cada equipe corrige o proprio questionario
+nota varia 0,5 ou 10.
+professor corrige os desafios
+
+-> 5
+fase de recursos para questinario e para respostas
+Nova data e novo periodo de tempo
+professor tem acesso aos questionarios
+professor pode mudar notas
+previa do rankamento
+
+-> 6
+divulgação final do rank
+ranckamento feito a casa rodada
+
+obs: pontuacao {
+Pontos XP
+Pontos Estrelas
+}
+
+
+#Telas#
+
+=====Turmas========
+-> Login
+-> Inicial
+-> Cadastro Exercicio
+-> Cadastro Resposta e Qualificacao Questionario
+-> Correcao do Questionario
+-> Ranckeamento (Turma)
+-> Recursos
+
+
+=====Professor========
+-> Login
+-> Inicial
+-> Cadastro de Turma
+-> Cadastro de Rodada
+-> Correcao do Desafios
+-> Avaliacao de Recursos
+-> Ranckeamento (Professor)
+
+
+
+

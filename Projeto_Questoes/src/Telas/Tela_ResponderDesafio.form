@@ -156,11 +156,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="AVAN&#xc7;AR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_avancar1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bt_cancelar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CANCELAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_cancelarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -283,11 +289,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="AVAN&#xc7;AR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_avancar2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bt_voltar1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VOLTAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_voltar1ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -410,11 +422,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="SALVAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_salvarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bt_voltar2">
               <Properties>
                 <Property name="text" type="java.lang.String" value="VOLTAR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_voltar2ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

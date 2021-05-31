@@ -1,58 +1,65 @@
-
 package Telas;
 
 import Classes.Equipe;
 import Classes.Questao_Desafio;
+import Classes.Resposta_Questao_Desafio;
 import Classes.Usuario_Token;
 import Servicos.Utilitarios;
 import WebService.EquipeWebDAO;
 import WebService.Questao_DesafioWebDAO;
+import WebService.Resposta_Questao_DesafioWebDAO;
+import javax.swing.JOptionPane;
 
 public class Tela_ResponderDesafio extends javax.swing.JDialog {
-    
+
     Utilitarios u = new Utilitarios();
     Usuario_Token ut = Usuario_Token.getInstance();
     Equipe e = new Equipe();
     EquipeWebDAO ewedao = new EquipeWebDAO();
     Questao_Desafio qd = new Questao_Desafio();
     Questao_DesafioWebDAO qdwdao = new Questao_DesafioWebDAO();
-    
-    
+    Resposta_Questao_Desafio rqd = new Resposta_Questao_Desafio();
+    Resposta_Questao_DesafioWebDAO rqdwdao = new Resposta_Questao_DesafioWebDAO();
+
     public Tela_ResponderDesafio(java.awt.Frame parent, boolean modal) {
-       super(parent, modal);
-       initComponents();
-       LimparCampos();
-       BuscarQuestão();
+        super(parent, modal);
+        initComponents();
+        LimparCampos();
+        BuscarQuestão();
     }
-    
-    public void LimparCampos(){
+
+    public void LimparCampos() {
+
         ta_questoes_desafio.setEnabled(false);
         ta_resposta_desafio1.setText("");
         ta_resposta_desafio2.setText("");
         ta_resposta_desafio3.setText("");
-        
+        ta_questoes_desafio.setEnabledAt(1, false);
+        ta_questoes_desafio.setEnabledAt(0, true);
+        ta_questoes_desafio.setSelectedIndex(0);
+
     }
-    
-    public void BuscarQuestão(){
-        
+
+    public void BuscarQuestão() {
+
         ewedao.BuscarEquipe(e, ut.getEquipe_idEquipe());
-        
+
         //QUESTÃO 01
-        qdwdao.BuscarQuestaoDesafio(e.getIdQuestao_Desafio01(),qd);
+        qdwdao.BuscarQuestaoDesafio(e.getIdQuestao_Desafio01(), qd);
         ta_questao_desafio1.setText(qd.getCorpo_Questao());
         qd = new Questao_Desafio();
-        
+
         //QUESTÃO 02
-        qdwdao.BuscarQuestaoDesafio(e.getIdQuestao_Desafio02(),qd);
+        qdwdao.BuscarQuestaoDesafio(e.getIdQuestao_Desafio02(), qd);
         ta_questao_desafio2.setText(qd.getCorpo_Questao());
         qd = new Questao_Desafio();
-        
+
         //QUESTÃO 03
-        qdwdao.BuscarQuestaoDesafio(e.getIdQuestao_Desafio03(),qd);
+        qdwdao.BuscarQuestaoDesafio(e.getIdQuestao_Desafio03(), qd);
         ta_questao_desafio3.setText(qd.getCorpo_Questao());
         qd = new Questao_Desafio();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -106,8 +113,18 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         jScrollPane2.setViewportView(ta_resposta_desafio1);
 
         bt_avancar1.setText("AVANÇAR");
+        bt_avancar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_avancar1ActionPerformed(evt);
+            }
+        });
 
         bt_cancelar.setText("CANCELAR");
+        bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,8 +189,18 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         jScrollPane4.setViewportView(ta_resposta_desafio2);
 
         bt_avancar2.setText("AVANÇAR");
+        bt_avancar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_avancar2ActionPerformed(evt);
+            }
+        });
 
         bt_voltar1.setText("VOLTAR");
+        bt_voltar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_voltar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -238,8 +265,18 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         jScrollPane6.setViewportView(ta_resposta_desafio3);
 
         bt_salvar.setText("SALVAR");
+        bt_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_salvarActionPerformed(evt);
+            }
+        });
 
         bt_voltar2.setText("VOLTAR");
+        bt_voltar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_voltar2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -300,9 +337,81 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-   
+
+    private void bt_avancar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_avancar1ActionPerformed
+
+        ta_questoes_desafio.setEnabledAt(0, false);
+        ta_questoes_desafio.setEnabledAt(1, true);
+        ta_questoes_desafio.setSelectedIndex(1);
+
+    }//GEN-LAST:event_bt_avancar1ActionPerformed
+
+    private void bt_avancar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_avancar2ActionPerformed
+
+        ta_questoes_desafio.setEnabledAt(1, false);
+        ta_questoes_desafio.setEnabledAt(2, true);
+        ta_questoes_desafio.setSelectedIndex(2);
+
+    }//GEN-LAST:event_bt_avancar2ActionPerformed
+
+    private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Deseja cancelar o processo?", "Cancelar", 2) == 0) {
+            LimparCampos();
+            dispose();
+
+        }
+    }//GEN-LAST:event_bt_cancelarActionPerformed
+
+    private void bt_voltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_voltar1ActionPerformed
+        ta_questoes_desafio.setEnabledAt(1, false);
+        ta_questoes_desafio.setEnabledAt(0, true);
+        ta_questoes_desafio.setSelectedIndex(0);
+    }//GEN-LAST:event_bt_voltar1ActionPerformed
+
+    private void bt_voltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_voltar2ActionPerformed
+        ta_questoes_desafio.setEnabledAt(2, false);
+        ta_questoes_desafio.setEnabledAt(1, true);
+        ta_questoes_desafio.setSelectedIndex(1);
+    }//GEN-LAST:event_bt_voltar2ActionPerformed
+
+    private void bt_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_salvarActionPerformed
+        if (ta_resposta_desafio1.getText().equals("") || ta_resposta_desafio2.getText().equals("") || ta_resposta_desafio3.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(null, "Informe todas as Respostas");
+
+        } else {
+
+            if (JOptionPane.showConfirmDialog(null, "Deseja Salvar?", "Salvar", 2) == 0) {
+
+                ewedao.BuscarEquipe(e, ut.getEquipe_idEquipe());
+
+                //RESPOSTA 01
+                rqdwdao.BuscarRespostaDesafio(e.getIdResposta_Desafio01(), rqd);
+                rqd.setCorpo_Resposta(ta_resposta_desafio1.getText());
+                rqdwdao.AtualizarResposta(rqd);
+                rqd = new Resposta_Questao_Desafio();
+
+                //RESPOSTA 02
+                rqdwdao.BuscarRespostaDesafio(e.getIdResposta_Desafio02(), rqd);
+                rqd.setCorpo_Resposta(ta_resposta_desafio2.getText());
+                rqdwdao.AtualizarResposta(rqd);
+                rqd = new Resposta_Questao_Desafio();
+
+                //RESPOSTA 03
+                rqdwdao.BuscarRespostaDesafio(e.getIdResposta_Desafio03(), rqd);
+                rqd.setCorpo_Resposta(ta_resposta_desafio3.getText());
+                rqdwdao.AtualizarResposta(rqd);
+                rqd = new Resposta_Questao_Desafio();
+                JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
+                LimparCampos();
+
+            }
+
+        }
+    }//GEN-LAST:event_bt_salvarActionPerformed
+
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -321,7 +430,6 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-       
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Tela_ResponderDesafio dialog = new Tela_ResponderDesafio(new javax.swing.JFrame(), true);

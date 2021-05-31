@@ -137,6 +137,27 @@ CREATE TABLE IF NOT EXISTS `adabox28_bd_questoes`.`Resposta_Questao_Desafio` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+CREATE TABLE IF NOT EXISTS `adabox28_bd_questoes`.`Recurso` (
+  `idRecurso` INT(11) NOT NULL AUTO_INCREMENT,
+  `Objeto` VARCHAR(50) NOT NULL,
+  `Causa` VARCHAR(1000) NOT NULL,
+  `Deferimento` VARCHAR(1000) NOT NULL,
+  `Situacao` INT(11) NOT NULL,
+  `Rodada_idRodada` INT(11) NOT NULL,
+  `Equipe_idEquipe` INT(11) NOT NULL,
+  PRIMARY KEY (`idRecurso`),
+  INDEX `fk_Recurso_Rodada1_idx` (`Rodada_idRodada` ),
+  INDEX `fk_Recurso_Equipe1_idx` (`Equipe_idEquipe` ),
+  CONSTRAINT `fk_Recurso_Rodada1`
+    FOREIGN KEY (`Rodada_idRodada`)
+    REFERENCES `adabox28_bd_questoes`.`Rodada` (`idRodada`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Recurso_Equipe1`
+    FOREIGN KEY (`Equipe_idEquipe`)
+    REFERENCES `adabox28_bd_questoes`.`Equipe` (`idEquipe`)
+    );
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -145,3 +166,13 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 INSERT INTO `Equipe` (`idEquipe`, `Nome_Equipe`, `Equipe_Para_Resposta`, `Equipe_Que_Resposta`, `idQuestao_Equipe01`, `idQuestao_Equipe02`, `idQuestao_Equipe03`, `idQuestao_Equipe04`, `idQuestao_Equipe05`, `idQuestao_Equipe06`, `idQuestao_Equipe07`, `idQuestao_Equipe08`, `idQuestao_Equipe09`, `idQuestao_Equipe10`, `idResposta_Equipe01`, `idResposta_Equipe02`, `idResposta_Equipe03`, `idResposta_Equipe04`, `idResposta_Equipe05`, `idResposta_Equipe06`, `idResposta_Equipe07`, `idResposta_Equipe08`, `idResposta_Equipe09`, `idResposta_Equipe10`, `idQuestao_Desafio01`, `idQuestao_Desafio02`, `idQuestao_Desafio03`, `idResposta_Desafio01`, `idResposta_Desafio02`, `idResposta_Desafio03`) VALUES (NULL,'', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL);
 INSERT INTO `Usuario_Professor` (`idUsuario_Professor`, `Nome_Professor`, `Email`, `Senha`) VALUES (NULL, 'admin', 'a', 'a');
+
+TRUNCATE TABLE Usuario_Aluno;
+TRUNCATE TABLE Rodada;
+TRUNCATE TABLE Usuario_Professor;
+TRUNCATE TABLE Recurso;
+TRUNCATE TABLE Equipe;
+TRUNCATE TABLE Questao;
+TRUNCATE TABLE Questao_Desafio;
+TRUNCATE TABLE Resposta;
+TRUNCATE TABLE Resposta_Questao_Desafio;

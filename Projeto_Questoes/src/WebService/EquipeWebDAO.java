@@ -1,6 +1,7 @@
 package WebService;
 
 import Classes.Equipe;
+import Servicos.JSONArray;
 import Servicos.JSONObject;
 import Servicos.Utilitarios;
 import java.io.IOException;
@@ -9,11 +10,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class EquipeWebDAO {
 
-    private String link = Utilitarios.Link;
+    private final String link = Utilitarios.Link;
     Utilitarios u = new Utilitarios();
 
     public void AdicionaEquipe(Equipe e) {
@@ -23,6 +25,12 @@ public class EquipeWebDAO {
                     + "Nome_Equipe=" + u.correrstring(URLEncoder.encode(e.getNomeEquipe(), "UTF-8"))
                     + "&Equipe_Para_Resposta=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getEquipe_Para_Resposta()), "UTF-8"))
                     + "&Equipe_Que_Resposta=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getEquipe_Que_Resposta()), "UTF-8"))
+                    + "&Pontuacao_Questoes=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getPontuacao_Questoes()), "UTF-8"))
+                    + "&Pontuacao_Respostas=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getPontuacao_Respostas()), "UTF-8"))
+                    + "&Pontuacao_Desafios=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getPontuacao_Desafios()), "UTF-8"))
+                    + "&isQuestionario=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIsQuestionario()), "UTF-8"))
+                    + "&isResposta=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIsResposta()), "UTF-8"))
+                    + "&isDesafio=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIsDesafio()), "UTF-8"))
                     + "&idQuestao_Equipe01=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIdQuestao_Equipe01()), "UTF-8"))
                     + "&idQuestao_Equipe02=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIdQuestao_Equipe02()), "UTF-8"))
                     + "&idQuestao_Equipe03=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIdQuestao_Equipe03()), "UTF-8"))
@@ -66,6 +74,118 @@ public class EquipeWebDAO {
                 } else {
                     //JOptionPane.showMessageDialog(null,"Erro!");
                 }
+            }
+        } catch (MalformedURLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+            System.out.println(ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+            System.out.println(ex);
+        } finally {
+            connection.disconnect();
+        }
+
+    }
+    
+    public void AtualizarPontuacaoEquipe(Equipe e) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(link + "equipe/atualizarPontuacaoEquipe.php?"
+                    + "idEquipe=" + e.getIdEquipe()
+                    + "&Pontuacao_Questoes=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getPontuacao_Questoes()), "UTF-8"))
+                    + "&Pontuacao_Respostas=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getPontuacao_Respostas()), "UTF-8"))
+                    + "&Pontuacao_Desafios=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getPontuacao_Desafios()), "UTF-8"))
+            );
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                JSONObject jObject = new JSONObject(u.readResponse(connection));
+                //System.out.println(u.readResponse(connection));
+                if (jObject.getBoolean("Resultado")) {
+                    //JOptionPane.showMessageDialog(null,"Salvo com Sucesso!");
+                } else {
+                    //JOptionPane.showMessageDialog(null,"Erro!");
+                }
+            }
+        } catch (MalformedURLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+            System.out.println(ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+            System.out.println(ex);
+        } finally {
+            connection.disconnect();
+        }
+
+    }
+    
+    public void AtualizarStatusEquipe(Equipe e) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(link + "equipe/atualizarStatusEquipe.php?"
+                    + "idEquipe=" + e.getIdEquipe()
+                    + "&isQuestionario=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIsQuestionario()), "UTF-8"))
+                    + "&isResposta=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIsResposta()), "UTF-8"))
+                    + "&isDesafio=" + u.correrstring(URLEncoder.encode(String.valueOf(e.getIsDesafio()), "UTF-8"))
+            );
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                JSONObject jObject = new JSONObject(u.readResponse(connection));
+                //System.out.println(u.readResponse(connection));
+                if (jObject.getBoolean("Resultado")) {
+                    //JOptionPane.showMessageDialog(null,"Salvo com Sucesso!");
+                } else {
+                    //JOptionPane.showMessageDialog(null,"Erro!");
+                }
+            }
+        } catch (MalformedURLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+            System.out.println(ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+            System.out.println(ex);
+        } finally {
+            connection.disconnect();
+        }
+
+    }
+    
+    public void AtualizarNomeEquipe(Equipe e) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(link + "equipe/atualizarNomeEquipe.php?"
+                    + "idEquipe=" + e.getIdEquipe()
+                    + "&Nome_Equipe=" + u.correrstring(URLEncoder.encode(e.getNomeEquipe(), "UTF-8"))
+            );
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            try (OutputStream outputStream = connection.getOutputStream()) {
+//                JSONObject jObject = new JSONObject(u.readResponse(connection));
+                //System.out.println(u.readResponse(connection));
+//                if (jObject.getBoolean("Resultado")) {
+//                    JOptionPane.showMessageDialog(null,"Atualizado com Sucesso!");
+//                } else {
+//                    JOptionPane.showMessageDialog(null,"Erro!");
+//                }
             }
         } catch (MalformedURLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex);
@@ -128,6 +248,12 @@ public class EquipeWebDAO {
                 e.setNomeEquipe(json.getString("Nome_Equipe"));
                 e.setEquipe_Para_Resposta(json.getInt("Equipe_Para_Resposta"));
                 e.setEquipe_Que_Resposta(json.getInt("Equipe_Que_Resposta"));
+                e.setPontuacao_Questoes(json.getInt("Pontuacao_Questoes"));
+                e.setPontuacao_Respostas(json.getInt("Pontuacao_Respostas"));
+                e.setPontuacao_Desafios(json.getInt("Pontuacao_Desafios"));
+                e.setIsQuestionario(json.getInt("isQuestionario"));
+                e.setIsResposta(json.getInt("isResposta"));
+                e.setIsDesafio(json.getInt("isDesafio"));
                 e.setIdQuestao_Equipe01(json.getInt("idQuestao_Equipe01"));
                 e.setIdQuestao_Equipe02(json.getInt("idQuestao_Equipe02"));
                 e.setIdQuestao_Equipe03(json.getInt("idQuestao_Equipe03"));
@@ -164,5 +290,6 @@ public class EquipeWebDAO {
         }
 
     }
+
 
 }

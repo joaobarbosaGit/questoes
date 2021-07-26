@@ -55,6 +55,43 @@ public class Questao_DesafioWebDAO {
    
     }
     
+    public void AtualizarQuestaoDesafio(Questao_Desafio qd){
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL(link+"/questao_desafio/atualizarQuestaoDesafio.php?"
+                    +"idQuestao_Desafio="+qd.getIdQuestao_Desafio()
+                    +"&Corpo_Questao="+u.correrstring(URLEncoder.encode(qd.getCorpo_Questao(),"UTF-8"))
+                    +"&Gabarito="+u.correrstring(URLEncoder.encode(qd.getGabarito(),"UTF-8"))
+            );
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(15000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setDoInput(true);  
+            connection.setDoOutput(true);
+            connection.connect();
+             try (OutputStream outputStream = connection.getOutputStream()) {
+                 JSONObject jObject  = new JSONObject(u.readResponse(connection));
+                 //System.out.println(u.readResponse(connection));
+                 if(jObject.getBoolean("Resultado")){
+                 //JOptionPane.showMessageDialog(null,"Salvo com Sucesso!");
+                 }else{
+                 //JOptionPane.showMessageDialog(null,"Erro!");
+                 }
+            }
+        } catch (MalformedURLException ex) {
+            JOptionPane.showMessageDialog(null,"Erro: "+ex);
+            System.out.println(ex);
+        } catch (IOException ex) {
+           JOptionPane.showMessageDialog(null,"Erro: "+ex);
+            System.out.println(ex);
+        }finally{
+            connection.disconnect();
+        }
+   
+    }
+    
     public int BuscarUltimoId(){
         HttpURLConnection connection = null;
         int retorno = 0;

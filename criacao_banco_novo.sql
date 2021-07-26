@@ -14,6 +14,12 @@ CREATE TABLE IF NOT EXISTS `adabox28_bd_questoes`.`Equipe` (
   `Nome_Equipe` VARCHAR(100) NOT NULL,
   `Equipe_Para_Resposta` INT(11) NOT NULL,
   `Equipe_Que_Resposta` INT(11) NOT NULL,
+  `Pontuacao_Questoes` INT(11) NOT NULL,
+  `Pontuacao_Respostas` INT(11) NOT NULL,
+  `Pontuacao_Desafios` INT(11) NOT NULL,
+  `isQuestionario` INT(11) NOT NULL,
+  `isResposta` INT(11) NOT NULL,
+  `isDesafio` INT(11) NOT NULL,
   `idQuestao_Equipe01` INT(11) NOT NULL,
   `idQuestao_Equipe02` INT(11) NOT NULL,
   `idQuestao_Equipe03` INT(11) NOT NULL,
@@ -64,6 +70,7 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `adabox28_bd_questoes`.`Rodada` (
   `idRodada` INT(11) NOT NULL AUTO_INCREMENT,
+  `Descricao` VARCHAR(200) NOT NULL,
   `Material` VARCHAR(200) NOT NULL,
   `Quantidade_Times` VARCHAR(45) NOT NULL,
   `Data_Fase1` DATE NOT NULL,

@@ -4,6 +4,7 @@ package Classes;
 
 public class Rodada {
     private int idRodada;
+    private String Descricao;
     private String Material;
     private int Quantidade_Times;
     private String Data_Fase1;
@@ -23,6 +24,14 @@ public class Rodada {
     private int idQuestao_Desafio08;
     private int idQuestao_Desafio09;
     private int idQuestao_Desafio10;
+
+    public String getDescricao() {
+        return Descricao;
+    }
+
+    public void setDescricao(String Descricao) {
+        this.Descricao = Descricao;
+    }
 
     public int getIdRodada() {
         return idRodada;

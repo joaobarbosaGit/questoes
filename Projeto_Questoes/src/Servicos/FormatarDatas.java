@@ -16,4 +16,10 @@ public class FormatarDatas {
          SimpleDateFormat dataformatada = new SimpleDateFormat("dd/MM/yyyy");
          return data = dataformatada.format(jdata.getDate());
                } 
+    public String FormatarDataBrasil(String Data){
+         String[] datas = Data.split("-");
+         String dataformatada = datas[2]+"/"+datas[1]+"/"+datas[0];
+         return dataformatada;
+               } 
+   
 }

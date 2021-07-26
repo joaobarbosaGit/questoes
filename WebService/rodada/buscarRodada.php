@@ -10,6 +10,7 @@ mysqli_stmt_execute($stmt);
 mysqli_stmt_bind_result($stmt, 
 	
 	$rows->idRodada, 
+	$rows->Descricao, 
 	$rows->Material, 
 	$rows->Quantidade_Times, 
 	$rows->Data_Fase1, 
@@ -35,6 +36,7 @@ while(mysqli_stmt_fetch($stmt)){
     $output = array(
 
     	'idRodada' => $rows->idRodada, 
+    	'Descricao' => $rows->Descricao, 
     	'Material' => $rows->Material, 
     	'Quantidade_Times' => $rows->Quantidade_Times, 
     	'Data_Fase1' => $rows->Data_Fase1, 
@@ -50,7 +52,7 @@ while(mysqli_stmt_fetch($stmt)){
     	'idQuestao_Desafio04' => $rows->idQuestao_Desafio04, 
     	'idQuestao_Desafio05' => $rows->idQuestao_Desafio05, 
     	'idQuestao_Desafio06' => $rows->idQuestao_Desafio06, 
-    	'idQuestao_Desafio07' => $rows->idQuestao_Desafio08, 
+    	'idQuestao_Desafio07' => $rows->idQuestao_Desafio07, 
     	'idQuestao_Desafio08' => $rows->idQuestao_Desafio08, 
     	'idQuestao_Desafio09' => $rows->idQuestao_Desafio09, 
     	'idQuestao_Desafio10' => $rows->idQuestao_Desafio10);

@@ -102,5 +102,53 @@ public class Utilitarios {
                cp.setEnabled(true);
            }
     }
+    
+    public String VerificarSituacaoRecurso(int situacao){
+        String retorno;
+        
+        switch (situacao) {
+            case 0:
+                retorno  =  "Em Análise";
+                break;
+                
+            case 1:
+                retorno  =  "Deferido";
+                break;
+                
+            case 2:
+                retorno  =  "Indeferido";
+                break;
+                
+            default:
+                retorno  =  "Em Análise";
+                break;
+                
+        }
+        
+        return retorno;
+    }
+    
+    public int VerificarDeferimento(String deferimento){
+        int retorno;
+        
+        switch (deferimento){
+            case "Em Análise":
+                retorno = 0;
+                break;
+                
+            case "Deferido":
+                retorno = 1;
+                break;
+                
+            case "Indeferido":
+                retorno = 2;
+                break;
+
+            default:
+                retorno = 0;
+                break;
+        }
+        return retorno;
+    }
 
 }

@@ -85,63 +85,82 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         ta_questao01.setText(q.getCorpo_Questao());
         ta_gabarito01.setText(q.getGabarito());
         q = new Questao();
+        }
                 
         //QUESTAO 02
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe02(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao02.setText(q.getCorpo_Questao());
         ta_gabarito02.setText(q.getGabarito());
         q = new Questao();
+        }
         
         //QUESTAO 03
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe03(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao03.setText(q.getCorpo_Questao());
         ta_gabarito03.setText(q.getGabarito());
         q = new Questao();
-
+        }
+        
         //QUESTAO 04
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe04(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao04.setText(q.getCorpo_Questao());
         ta_gabarito04.setText(q.getGabarito());
         q = new Questao();
-
+        }
+        
         //QUESTAO 05
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe05(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao05.setText(q.getCorpo_Questao());
         ta_gabarito05.setText(q.getGabarito());
         q = new Questao();
+        }
 
         //QUESTAO 06
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe06(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao06.setText(q.getCorpo_Questao());
         ta_gabarito06.setText(q.getGabarito());
         q = new Questao();
+        }
 
         //QUESTAO 07
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe07(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao07.setText(q.getCorpo_Questao());
         ta_gabarito07.setText(q.getGabarito());
         q = new Questao();
+        }
 
         //QUESTAO 08
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe08(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao08.setText(q.getCorpo_Questao());
         ta_gabarito08.setText(q.getGabarito());
         q = new Questao();
+        }
 
         //QUESTAO 09
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe09(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao09.setText(q.getCorpo_Questao());
         ta_gabarito09.setText(q.getGabarito());
         q = new Questao();
+        }
 
         //QUESTAO 10
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe10(), q);
+        if(!q.getCorpo_Questao().equals("SEM CONTEUDO")){
         ta_questao10.setText(q.getCorpo_Questao());
         ta_gabarito10.setText(q.getGabarito());
         q = new Questao();
+        }
         
         bt_salvar.setText("ATUALIZAR");
-        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -256,7 +275,9 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao01.setColumns(20);
+        ta_questao01.setLineWrap(true);
         ta_questao01.setRows(5);
+        ta_questao01.setWrapStyleWord(true);
         jScrollPane1.setViewportView(ta_questao01);
 
         bt_cancelar.setText("CANCELAR");
@@ -269,7 +290,9 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         jLabel11.setText("Gabarito 01:");
 
         ta_gabarito01.setColumns(20);
+        ta_gabarito01.setLineWrap(true);
         ta_gabarito01.setRows(5);
+        ta_gabarito01.setWrapStyleWord(true);
         jScrollPane11.setViewportView(ta_gabarito01);
 
         javax.swing.GroupLayout painel_qst01Layout = new javax.swing.GroupLayout(painel_qst01);
@@ -315,11 +338,15 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         jLabel12.setText("Questão 02:");
 
         ta_questao02.setColumns(20);
+        ta_questao02.setLineWrap(true);
         ta_questao02.setRows(5);
+        ta_questao02.setWrapStyleWord(true);
         jScrollPane12.setViewportView(ta_questao02);
 
         ta_gabarito02.setColumns(20);
+        ta_gabarito02.setLineWrap(true);
         ta_gabarito02.setRows(5);
+        ta_gabarito02.setWrapStyleWord(true);
         jScrollPane13.setViewportView(ta_gabarito02);
 
         jLabel13.setText("Gabarito 02:");
@@ -395,13 +422,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao03.setColumns(20);
+        ta_questao03.setLineWrap(true);
         ta_questao03.setRows(5);
+        ta_questao03.setWrapStyleWord(true);
         jScrollPane14.setViewportView(ta_questao03);
 
         jLabel15.setText("Gabarito 03:");
 
         ta_gabarito03.setColumns(20);
+        ta_gabarito03.setLineWrap(true);
         ta_gabarito03.setRows(5);
+        ta_gabarito03.setWrapStyleWord(true);
         jScrollPane15.setViewportView(ta_gabarito03);
 
         javax.swing.GroupLayout painel_qst03Layout = new javax.swing.GroupLayout(painel_qst03);
@@ -461,13 +492,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao04.setColumns(20);
+        ta_questao04.setLineWrap(true);
         ta_questao04.setRows(5);
+        ta_questao04.setWrapStyleWord(true);
         jScrollPane16.setViewportView(ta_questao04);
 
         jLabel17.setText("Gabarito 04:");
 
         ta_gabarito04.setColumns(20);
+        ta_gabarito04.setLineWrap(true);
         ta_gabarito04.setRows(5);
+        ta_gabarito04.setWrapStyleWord(true);
         jScrollPane17.setViewportView(ta_gabarito04);
 
         javax.swing.GroupLayout painel_qst04Layout = new javax.swing.GroupLayout(painel_qst04);
@@ -527,13 +562,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao05.setColumns(20);
+        ta_questao05.setLineWrap(true);
         ta_questao05.setRows(5);
+        ta_questao05.setWrapStyleWord(true);
         jScrollPane18.setViewportView(ta_questao05);
 
         jLabel19.setText("Gabarito 05:");
 
         ta_gabarito05.setColumns(20);
+        ta_gabarito05.setLineWrap(true);
         ta_gabarito05.setRows(5);
+        ta_gabarito05.setWrapStyleWord(true);
         jScrollPane19.setViewportView(ta_gabarito05);
 
         javax.swing.GroupLayout painel_qst05Layout = new javax.swing.GroupLayout(painel_qst05);
@@ -593,13 +632,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao06.setColumns(20);
+        ta_questao06.setLineWrap(true);
         ta_questao06.setRows(5);
+        ta_questao06.setWrapStyleWord(true);
         jScrollPane20.setViewportView(ta_questao06);
 
         jLabel21.setText("Gabarito 06:");
 
         ta_gabarito06.setColumns(20);
+        ta_gabarito06.setLineWrap(true);
         ta_gabarito06.setRows(5);
+        ta_gabarito06.setWrapStyleWord(true);
         jScrollPane21.setViewportView(ta_gabarito06);
 
         javax.swing.GroupLayout painel_qst06Layout = new javax.swing.GroupLayout(painel_qst06);
@@ -659,13 +702,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao07.setColumns(20);
+        ta_questao07.setLineWrap(true);
         ta_questao07.setRows(5);
+        ta_questao07.setWrapStyleWord(true);
         jScrollPane22.setViewportView(ta_questao07);
 
         jLabel23.setText("Gabarito 07:");
 
         ta_gabarito07.setColumns(20);
+        ta_gabarito07.setLineWrap(true);
         ta_gabarito07.setRows(5);
+        ta_gabarito07.setWrapStyleWord(true);
         jScrollPane23.setViewportView(ta_gabarito07);
 
         javax.swing.GroupLayout painel_qst07Layout = new javax.swing.GroupLayout(painel_qst07);
@@ -725,13 +772,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao08.setColumns(20);
+        ta_questao08.setLineWrap(true);
         ta_questao08.setRows(5);
+        ta_questao08.setWrapStyleWord(true);
         jScrollPane24.setViewportView(ta_questao08);
 
         jLabel25.setText("Gabarito 08:");
 
         ta_gabarito08.setColumns(20);
+        ta_gabarito08.setLineWrap(true);
         ta_gabarito08.setRows(5);
+        ta_gabarito08.setWrapStyleWord(true);
         jScrollPane25.setViewportView(ta_gabarito08);
 
         javax.swing.GroupLayout painel_qst08Layout = new javax.swing.GroupLayout(painel_qst08);
@@ -791,13 +842,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao09.setColumns(20);
+        ta_questao09.setLineWrap(true);
         ta_questao09.setRows(5);
+        ta_questao09.setWrapStyleWord(true);
         jScrollPane26.setViewportView(ta_questao09);
 
         jLabel27.setText("Gabarito 09:");
 
         ta_gabarito09.setColumns(20);
+        ta_gabarito09.setLineWrap(true);
         ta_gabarito09.setRows(5);
+        ta_gabarito09.setWrapStyleWord(true);
         jScrollPane27.setViewportView(ta_gabarito09);
 
         javax.swing.GroupLayout painel_qst09Layout = new javax.swing.GroupLayout(painel_qst09);
@@ -857,13 +912,17 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
         });
 
         ta_questao10.setColumns(20);
+        ta_questao10.setLineWrap(true);
         ta_questao10.setRows(5);
+        ta_questao10.setWrapStyleWord(true);
         jScrollPane28.setViewportView(ta_questao10);
 
         jLabel29.setText("Gabarito 10:");
 
         ta_gabarito10.setColumns(20);
+        ta_gabarito10.setLineWrap(true);
         ta_gabarito10.setRows(5);
+        ta_gabarito10.setWrapStyleWord(true);
         jScrollPane29.setViewportView(ta_gabarito10);
 
         javax.swing.GroupLayout painel_qst10Layout = new javax.swing.GroupLayout(painel_qst10);
@@ -1171,6 +1230,10 @@ public class Tela_AdicionarQuestionario extends javax.swing.JDialog {
                 q.setGabarito(ta_gabarito10.getText());
                 q.setQualificacao_Questao("NÃO APLICADO");
                 qwdao.AtualizarQuestao(q);
+                
+                //ATUALIZAR STATUS EQUIPE
+                e.setIsQuestionario(1);
+                ewdao.AtualizarStatusEquipe(e);
                 
                 //LIMPAR CAMPOS
                 JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");

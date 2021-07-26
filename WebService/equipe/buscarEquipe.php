@@ -17,6 +17,12 @@ mysqli_stmt_bind_result($stmt,
 	$rows->Nome_Equipe, 
 	$rows->Equipe_Para_Resposta, 
     $rows->Equipe_Que_Resposta, 
+    $rows->Pontuacao_Questoes, 
+    $rows->Pontuacao_Respostas, 
+    $rows->Pontuacao_Desafios,     
+    $rows->isQuestionario, 
+    $rows->isResposta, 
+    $rows->isDesafio, 
 	$rows->idQuestao_Equipe01, 
 	$rows->idQuestao_Equipe02, 
 	$rows->idQuestao_Equipe03, 
@@ -46,14 +52,18 @@ mysqli_stmt_bind_result($stmt,
 
 while(mysqli_stmt_fetch($stmt)){
 
-$string_Nome_Equipe = utf8_encode($rows->Nome_Equipe);
-
     $output = array(
 
     	'idEquipe' => $rows->idEquipe, 
-    	'Nome_Equipe' => $string_Nome_Equipe, 
+    	'Nome_Equipe' => $rows->Nome_Equipe, 
     	'Equipe_Para_Resposta' => $rows->Equipe_Para_Resposta, 
         'Equipe_Que_Resposta' => $rows->Equipe_Que_Resposta, 
+        'Pontuacao_Questoes' => $rows->Pontuacao_Questoes, 
+        'Pontuacao_Respostas' => $rows->Pontuacao_Respostas, 
+        'Pontuacao_Desafios' => $rows->Pontuacao_Desafios, 
+        'isQuestionario' => $rows->isQuestionario, 
+        'isResposta' => $rows->isResposta, 
+        'isDesafio' => $rows->isDesafio, 
         'idQuestao_Equipe01' => $rows->idQuestao_Equipe01, 
     	'idQuestao_Equipe02' => $rows->idQuestao_Equipe02, 
     	'idQuestao_Equipe03' => $rows->idQuestao_Equipe03, 

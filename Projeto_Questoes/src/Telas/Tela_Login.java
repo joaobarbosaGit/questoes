@@ -5,6 +5,7 @@ import Classes.Usuario_Professor;
 import Classes.Usuario_Token;
 import WebService.Usuario_ProfessorWebDAO;
 import Servicos.Utilitarios;
+import WebService.RodadaWebDAO;
 import WebService.Usuario_AlunoWebDAO;
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,7 @@ public class Tela_Login extends javax.swing.JFrame {
 
     Usuario_Token ut = Usuario_Token.getInstance();
     Utilitarios uti = new Utilitarios();
+    RodadaWebDAO rwdao = new RodadaWebDAO();
 
     public Tela_Login() {
         initComponents();
@@ -160,9 +162,16 @@ public class Tela_Login extends javax.swing.JFrame {
                             ut.setEquipe_idEquipe(0);
                             ut.setRodada_idRodada(0);
                             ut.setTipo("admin");
-                            Tela_Menu tm = new Tela_Menu();
-                            tm.setVisible(true);
-                            this.dispose();
+                            if(rwdao.verificarSeExisteRodada(ut.getId())){
+                                Tela_DefinirRodadaLogin tdrl = new Tela_DefinirRodadaLogin();
+                                tdrl.setVisible(true);
+                                this.dispose();
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Usuario sem Rodada adicionada");
+                                Tela_Menu tm = new Tela_Menu();
+                                tm.setVisible(true);
+                                this.dispose();
+                            }
                         } else {
                             JOptionPane.showMessageDialog(null, "Senha Incorreta!");
                         }
@@ -182,6 +191,7 @@ public class Tela_Login extends javax.swing.JFrame {
                             ut.setEquipe_idEquipe(ua.getEquipe_idEquipe());
                             ut.setRodada_idRodada(ua.getRodada_idRodada());
                             ut.setTipo("user");
+                            JOptionPane.showMessageDialog(null, "Bem vindo Equipe: "+ut.getNome());
                             Tela_Menu tm = new Tela_Menu();
                             tm.setVisible(true);
                             this.dispose();

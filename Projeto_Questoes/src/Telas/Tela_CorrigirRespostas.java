@@ -7,6 +7,7 @@ import Classes.Resposta;
 import Classes.Resposta_Questao_Desafio;
 import Classes.Rodada;
 import Classes.Usuario_Token;
+import Servicos.ContagemPontos;
 import Servicos.Utilitarios;
 import WebService.EquipeWebDAO;
 import WebService.QuestaoWebDAO;
@@ -19,8 +20,8 @@ import javax.swing.JOptionPane;
 
 public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
-    Utilitarios u = new Utilitarios();
     Usuario_Token ut = Usuario_Token.getInstance();
+    Utilitarios u = new Utilitarios();
     Equipe e = new Equipe();
     Equipe er = new Equipe();
     EquipeWebDAO ewdao = new EquipeWebDAO();
@@ -40,7 +41,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     public Tela_CorrigirRespostas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        //BuscarQuestoes();
+        BuscarQuestoes();
         tb_Questoes.setEnabled(false);
         BloquearAreasTexto();
     }
@@ -54,9 +55,21 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         //BUSCAR EQUIPE
         ewdao.BuscarEquipe(e, ut.getEquipe_idEquipe());
         ewdao.BuscarEquipe(er, e.getEquipe_Que_Resposta());
+        
+        //VERIFICAR STATUS DA EQUIPE
+        if(e.getIsQuestionario() == 0){
+            JOptionPane.showMessageDialog(null, "Equipe não fez questionario!");
+            bt_Avancar1.setEnabled(false);
+            u.bloqueiapainel(jp_correcao1);
+        } else if(er.getIsResposta() ==  0 ){
+            JOptionPane.showMessageDialog(null, "Equipe não respondeu o questionario!");
+            bt_Avancar1.setEnabled(false);
+            u.bloqueiapainel(jp_correcao1);
+        } else {
 
         //QUESTAO 01
         qwdao.BuscarQuestao(e.getIdQuestao_Equipe01(), q);
+        
         ta_Questao1.setText(q.getCorpo_Questao());
         ta_Gabarito1.setText(q.getGabarito());
         listaQuestoes.add(q);
@@ -174,7 +187,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         jc_correcao10.setSelectedIndex(IndexCorecaoResposta(r.getNota_Resposta()));
         listaRespostas.add(r);
         r = new Resposta();
-
+        }
     }
 
     public void BloquearAreasTexto() {
@@ -233,7 +246,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         tb_Questoes = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         painel_qst01 = new javax.swing.JPanel();
-        bt_Cancelar = new javax.swing.JButton();
+        bt_Voltar1 = new javax.swing.JButton();
         jl_Questao1 = new javax.swing.JLabel();
         jScrollPane32 = new javax.swing.JScrollPane();
         ta_Gabarito1 = new javax.swing.JTextArea();
@@ -267,7 +280,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         ta_Questao2 = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         painel_qst3 = new javax.swing.JPanel();
-        bt_Voltarr3 = new javax.swing.JButton();
+        bt_Voltar3 = new javax.swing.JButton();
         jl_Questao3 = new javax.swing.JLabel();
         jScrollPane36 = new javax.swing.JScrollPane();
         ta_Gabarito3 = new javax.swing.JTextArea();
@@ -385,21 +398,21 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         jScrollPane60 = new javax.swing.JScrollPane();
         ta_Questao9 = new javax.swing.JTextArea();
         jPanel11 = new javax.swing.JPanel();
-        painel_qst11 = new javax.swing.JPanel();
+        painel_qst10 = new javax.swing.JPanel();
         bt_Voltar10 = new javax.swing.JButton();
+        jl_Questao10 = new javax.swing.JLabel();
+        jScrollPane50 = new javax.swing.JScrollPane();
+        ta_Gabarito10 = new javax.swing.JTextArea();
+        jl_Resposta10 = new javax.swing.JLabel();
+        jScrollPane51 = new javax.swing.JScrollPane();
+        ta_Resposta10 = new javax.swing.JTextArea();
+        bt_Avancar10 = new javax.swing.JButton();
+        jp_correcao10 = new javax.swing.JPanel();
+        jc_correcao10 = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jl_pt10 = new javax.swing.JLabel();
         jl_Questao20 = new javax.swing.JLabel();
         jScrollPane61 = new javax.swing.JScrollPane();
-        ta_Gabarito10 = new javax.swing.JTextArea();
-        jl_Resposta11 = new javax.swing.JLabel();
-        jScrollPane62 = new javax.swing.JScrollPane();
-        ta_Resposta10 = new javax.swing.JTextArea();
-        bt_Salvar = new javax.swing.JButton();
-        jp_correcao11 = new javax.swing.JPanel();
-        jc_correcao10 = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        jl_pt10 = new javax.swing.JLabel();
-        jl_Questao21 = new javax.swing.JLabel();
-        jScrollPane63 = new javax.swing.JScrollPane();
         ta_Questao10 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -408,10 +421,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         tb_Questoes.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         tb_Questoes.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        bt_Cancelar.setText("CANCELAR");
-        bt_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+        bt_Voltar1.setText("CANCELAR");
+        bt_Voltar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_CancelarActionPerformed(evt);
+                bt_Voltar1ActionPerformed(evt);
             }
         });
 
@@ -420,7 +433,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito1.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito1.setColumns(20);
+        ta_Gabarito1.setLineWrap(true);
         ta_Gabarito1.setRows(5);
+        ta_Gabarito1.setWrapStyleWord(true);
         ta_Gabarito1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito1.setFocusable(false);
         jScrollPane32.setViewportView(ta_Gabarito1);
@@ -430,7 +445,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta1.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta1.setColumns(20);
+        ta_Resposta1.setLineWrap(true);
         ta_Resposta1.setRows(5);
+        ta_Resposta1.setWrapStyleWord(true);
         ta_Resposta1.setFocusable(false);
         jScrollPane33.setViewportView(ta_Resposta1);
 
@@ -471,11 +488,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_correcao1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jl_pt1))
-                    .addComponent(jc_correcao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jp_correcao1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao1)
+                    .addComponent(jl_pt1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -484,7 +500,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao1.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao1.setColumns(20);
+        ta_Questao1.setLineWrap(true);
         ta_Questao1.setRows(5);
+        ta_Questao1.setWrapStyleWord(true);
         ta_Questao1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao1.setFocusable(false);
         jScrollPane52.setViewportView(ta_Questao1);
@@ -508,7 +526,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                     .addGroup(painel_qst01Layout.createSequentialGroup()
                         .addComponent(jp_correcao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bt_Cancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_Voltar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar1)))
                 .addContainerGap())
@@ -528,17 +546,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane33, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst01Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst01Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bt_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_Voltar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -548,13 +565,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst01, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -564,7 +581,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 01", jPanel2);
 
-        bt_Voltar2.setText("VOLTAR");
+        bt_Voltar2.setText("CANCELAR");
         bt_Voltar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar2ActionPerformed(evt);
@@ -576,7 +593,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito2.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito2.setColumns(20);
+        ta_Gabarito2.setLineWrap(true);
         ta_Gabarito2.setRows(5);
+        ta_Gabarito2.setWrapStyleWord(true);
         ta_Gabarito2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito2.setFocusable(false);
         jScrollPane34.setViewportView(ta_Gabarito2);
@@ -586,7 +605,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta2.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta2.setColumns(20);
+        ta_Resposta2.setLineWrap(true);
         ta_Resposta2.setRows(5);
+        ta_Resposta2.setWrapStyleWord(true);
         ta_Resposta2.setFocusable(false);
         jScrollPane35.setViewportView(ta_Resposta2);
 
@@ -627,10 +648,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jl_pt2))
+                .addGroup(jp_correcao2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao2)
+                    .addComponent(jl_pt2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -639,7 +660,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao2.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao2.setColumns(20);
+        ta_Questao2.setLineWrap(true);
         ta_Questao2.setRows(5);
+        ta_Questao2.setWrapStyleWord(true);
         ta_Questao2.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao2.setFocusable(false);
         jScrollPane53.setViewportView(ta_Questao2);
@@ -662,8 +685,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst2Layout.createSequentialGroup()
                         .addComponent(jp_correcao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar2)))
                 .addContainerGap())
@@ -683,17 +706,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane35, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -703,13 +725,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel3Layout.createSequentialGroup()
                     .addContainerGap()
@@ -719,10 +741,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 02", jPanel3);
 
-        bt_Voltarr3.setText("VOLTAR");
-        bt_Voltarr3.addActionListener(new java.awt.event.ActionListener() {
+        bt_Voltar3.setText("CANCELAR");
+        bt_Voltar3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_Voltarr3ActionPerformed(evt);
+                bt_Voltar3ActionPerformed(evt);
             }
         });
 
@@ -731,7 +753,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito3.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito3.setColumns(20);
+        ta_Gabarito3.setLineWrap(true);
         ta_Gabarito3.setRows(5);
+        ta_Gabarito3.setWrapStyleWord(true);
         ta_Gabarito3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito3.setFocusable(false);
         jScrollPane36.setViewportView(ta_Gabarito3);
@@ -741,7 +765,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta3.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta3.setColumns(20);
+        ta_Resposta3.setLineWrap(true);
         ta_Resposta3.setRows(5);
+        ta_Resposta3.setWrapStyleWord(true);
         ta_Resposta3.setFocusable(false);
         jScrollPane37.setViewportView(ta_Resposta3);
 
@@ -782,10 +808,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jl_pt3))
+                .addGroup(jp_correcao3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao3)
+                    .addComponent(jl_pt3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -794,7 +820,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao3.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao3.setColumns(20);
+        ta_Questao3.setLineWrap(true);
         ta_Questao3.setRows(5);
+        ta_Questao3.setWrapStyleWord(true);
         ta_Questao3.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao3.setFocusable(false);
         jScrollPane54.setViewportView(ta_Questao3);
@@ -817,8 +845,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst3Layout.createSequentialGroup()
                         .addComponent(jp_correcao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltarr3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar3)))
                 .addContainerGap())
@@ -838,17 +866,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane37, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bt_Voltarr3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_Voltar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -858,13 +885,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addContainerGap()
@@ -874,7 +901,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 03", jPanel4);
 
-        bt_Voltar4.setText("VOLTAR");
+        bt_Voltar4.setText("CANCELAR");
         bt_Voltar4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar4ActionPerformed(evt);
@@ -886,7 +913,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito4.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito4.setColumns(20);
+        ta_Gabarito4.setLineWrap(true);
         ta_Gabarito4.setRows(5);
+        ta_Gabarito4.setWrapStyleWord(true);
         ta_Gabarito4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito4.setFocusable(false);
         jScrollPane38.setViewportView(ta_Gabarito4);
@@ -896,7 +925,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta4.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta4.setColumns(20);
+        ta_Resposta4.setLineWrap(true);
         ta_Resposta4.setRows(5);
+        ta_Resposta4.setWrapStyleWord(true);
         ta_Resposta4.setFocusable(false);
         jScrollPane39.setViewportView(ta_Resposta4);
 
@@ -937,10 +968,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jl_pt4))
+                .addGroup(jp_correcao4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao4)
+                    .addComponent(jl_pt4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -949,7 +980,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao4.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao4.setColumns(20);
+        ta_Questao4.setLineWrap(true);
         ta_Questao4.setRows(5);
+        ta_Questao4.setWrapStyleWord(true);
         ta_Questao4.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao4.setFocusable(false);
         jScrollPane55.setViewportView(ta_Questao4);
@@ -972,8 +1005,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst4Layout.createSequentialGroup()
                         .addComponent(jp_correcao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar4)))
                 .addContainerGap())
@@ -993,17 +1026,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane39, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst4Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -1013,13 +1045,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel5Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1029,7 +1061,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 04", jPanel5);
 
-        bt_Voltar5.setText("VOLTAR");
+        bt_Voltar5.setText("CANCELAR");
         bt_Voltar5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar5ActionPerformed(evt);
@@ -1041,7 +1073,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito5.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito5.setColumns(20);
+        ta_Gabarito5.setLineWrap(true);
         ta_Gabarito5.setRows(5);
+        ta_Gabarito5.setWrapStyleWord(true);
         ta_Gabarito5.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito5.setFocusable(false);
         jScrollPane40.setViewportView(ta_Gabarito5);
@@ -1051,7 +1085,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta5.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta5.setColumns(20);
+        ta_Resposta5.setLineWrap(true);
         ta_Resposta5.setRows(5);
+        ta_Resposta5.setWrapStyleWord(true);
         ta_Resposta5.setFocusable(false);
         jScrollPane41.setViewportView(ta_Resposta5);
 
@@ -1092,10 +1128,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jl_pt5))
+                .addGroup(jp_correcao5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao5)
+                    .addComponent(jl_pt5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1104,7 +1140,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao5.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao5.setColumns(20);
+        ta_Questao5.setLineWrap(true);
         ta_Questao5.setRows(5);
+        ta_Questao5.setWrapStyleWord(true);
         ta_Questao5.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao5.setFocusable(false);
         jScrollPane56.setViewportView(ta_Questao5);
@@ -1127,8 +1165,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst5Layout.createSequentialGroup()
                         .addComponent(jp_correcao5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar5)))
                 .addContainerGap())
@@ -1148,17 +1186,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane41, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst5Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1168,13 +1205,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel6Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1184,7 +1221,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 05", jPanel6);
 
-        bt_Voltar6.setText("VOLTAR");
+        bt_Voltar6.setText("CANCELAR");
         bt_Voltar6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar6ActionPerformed(evt);
@@ -1196,7 +1233,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito6.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito6.setColumns(20);
+        ta_Gabarito6.setLineWrap(true);
         ta_Gabarito6.setRows(5);
+        ta_Gabarito6.setWrapStyleWord(true);
         ta_Gabarito6.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito6.setFocusable(false);
         jScrollPane42.setViewportView(ta_Gabarito6);
@@ -1206,7 +1245,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta6.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta6.setColumns(20);
+        ta_Resposta6.setLineWrap(true);
         ta_Resposta6.setRows(5);
+        ta_Resposta6.setWrapStyleWord(true);
         ta_Resposta6.setFocusable(false);
         jScrollPane43.setViewportView(ta_Resposta6);
 
@@ -1247,10 +1288,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jl_pt6))
+                .addGroup(jp_correcao6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao6)
+                    .addComponent(jl_pt6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1259,7 +1300,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao6.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao6.setColumns(20);
+        ta_Questao6.setLineWrap(true);
         ta_Questao6.setRows(5);
+        ta_Questao6.setWrapStyleWord(true);
         ta_Questao6.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao6.setFocusable(false);
         jScrollPane57.setViewportView(ta_Questao6);
@@ -1282,8 +1325,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst6Layout.createSequentialGroup()
                         .addComponent(jp_correcao6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar6)))
                 .addContainerGap())
@@ -1303,17 +1346,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane43, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst6Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst6Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -1323,13 +1365,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel7Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1339,7 +1381,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 06", jPanel7);
 
-        bt_Voltar7.setText("VOLTAR");
+        bt_Voltar7.setText("CANCELAR");
         bt_Voltar7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar7ActionPerformed(evt);
@@ -1351,7 +1393,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito7.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito7.setColumns(20);
+        ta_Gabarito7.setLineWrap(true);
         ta_Gabarito7.setRows(5);
+        ta_Gabarito7.setWrapStyleWord(true);
         ta_Gabarito7.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito7.setFocusable(false);
         jScrollPane44.setViewportView(ta_Gabarito7);
@@ -1361,7 +1405,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta7.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta7.setColumns(20);
+        ta_Resposta7.setLineWrap(true);
         ta_Resposta7.setRows(5);
+        ta_Resposta7.setWrapStyleWord(true);
         ta_Resposta7.setFocusable(false);
         jScrollPane45.setViewportView(ta_Resposta7);
 
@@ -1402,10 +1448,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jl_pt7))
+                .addGroup(jp_correcao7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao7)
+                    .addComponent(jl_pt7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1414,7 +1460,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao7.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao7.setColumns(20);
+        ta_Questao7.setLineWrap(true);
         ta_Questao7.setRows(5);
+        ta_Questao7.setWrapStyleWord(true);
         ta_Questao7.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao7.setFocusable(false);
         jScrollPane58.setViewportView(ta_Questao7);
@@ -1437,8 +1485,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst7Layout.createSequentialGroup()
                         .addComponent(jp_correcao7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar7)))
                 .addContainerGap())
@@ -1458,17 +1506,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane45, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst7Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1478,13 +1525,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1494,7 +1541,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 07", jPanel8);
 
-        bt_Voltar8.setText("VOLTAR");
+        bt_Voltar8.setText("CANCELAR");
         bt_Voltar8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar8ActionPerformed(evt);
@@ -1506,7 +1553,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito8.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito8.setColumns(20);
+        ta_Gabarito8.setLineWrap(true);
         ta_Gabarito8.setRows(5);
+        ta_Gabarito8.setWrapStyleWord(true);
         ta_Gabarito8.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito8.setFocusable(false);
         jScrollPane46.setViewportView(ta_Gabarito8);
@@ -1516,7 +1565,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta8.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta8.setColumns(20);
+        ta_Resposta8.setLineWrap(true);
         ta_Resposta8.setRows(5);
+        ta_Resposta8.setWrapStyleWord(true);
         ta_Resposta8.setFocusable(false);
         jScrollPane47.setViewportView(ta_Resposta8);
 
@@ -1557,10 +1608,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jl_pt8))
+                .addGroup(jp_correcao8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao8)
+                    .addComponent(jl_pt8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1569,7 +1620,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao8.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao8.setColumns(20);
+        ta_Questao8.setLineWrap(true);
         ta_Questao8.setRows(5);
+        ta_Questao8.setWrapStyleWord(true);
         ta_Questao8.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao8.setFocusable(false);
         jScrollPane59.setViewportView(ta_Questao8);
@@ -1592,8 +1645,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst8Layout.createSequentialGroup()
                         .addComponent(jp_correcao8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar8)))
                 .addContainerGap())
@@ -1613,17 +1666,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane47, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst8Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst8Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1633,13 +1685,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel9Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1649,7 +1701,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 08", jPanel9);
 
-        bt_Voltar9.setText("VOLTAR");
+        bt_Voltar9.setText("CANCELAR");
         bt_Voltar9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar9ActionPerformed(evt);
@@ -1661,7 +1713,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Gabarito9.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito9.setColumns(20);
+        ta_Gabarito9.setLineWrap(true);
         ta_Gabarito9.setRows(5);
+        ta_Gabarito9.setWrapStyleWord(true);
         ta_Gabarito9.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito9.setFocusable(false);
         jScrollPane48.setViewportView(ta_Gabarito9);
@@ -1671,7 +1725,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Resposta9.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta9.setColumns(20);
+        ta_Resposta9.setLineWrap(true);
         ta_Resposta9.setRows(5);
+        ta_Resposta9.setWrapStyleWord(true);
         ta_Resposta9.setFocusable(false);
         jScrollPane49.setViewportView(ta_Resposta9);
 
@@ -1712,10 +1768,10 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             jp_correcao9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jp_correcao9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jl_pt9))
+                .addGroup(jp_correcao9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao9)
+                    .addComponent(jl_pt9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1724,7 +1780,9 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         ta_Questao9.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao9.setColumns(20);
+        ta_Questao9.setLineWrap(true);
         ta_Questao9.setRows(5);
+        ta_Questao9.setWrapStyleWord(true);
         ta_Questao9.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao9.setFocusable(false);
         jScrollPane60.setViewportView(ta_Questao9);
@@ -1747,8 +1805,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(painel_qst9Layout.createSequentialGroup()
                         .addComponent(jp_correcao9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Voltar9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bt_Avancar9)))
                 .addContainerGap())
@@ -1768,17 +1826,16 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
                 .addComponent(jl_Resposta9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane49, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painel_qst9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst9Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jp_correcao9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst9Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(painel_qst9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bt_Avancar9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -1788,13 +1845,13 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(17, Short.MAX_VALUE)
                     .addComponent(painel_qst9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addContainerGap()
@@ -1804,40 +1861,44 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
         tb_Questoes.addTab("QST 09", jPanel10);
 
-        bt_Voltar10.setText("VOLTAR");
+        bt_Voltar10.setText("CANCELAR");
         bt_Voltar10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_Voltar10ActionPerformed(evt);
             }
         });
 
-        jl_Questao20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jl_Questao20.setText("Gabarito 10:");
+        jl_Questao10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jl_Questao10.setText("Gabarito 10:");
 
         ta_Gabarito10.setBackground(new java.awt.Color(204, 204, 204));
         ta_Gabarito10.setColumns(20);
+        ta_Gabarito10.setLineWrap(true);
         ta_Gabarito10.setRows(5);
+        ta_Gabarito10.setWrapStyleWord(true);
         ta_Gabarito10.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Gabarito10.setFocusable(false);
-        jScrollPane61.setViewportView(ta_Gabarito10);
+        jScrollPane50.setViewportView(ta_Gabarito10);
 
-        jl_Resposta11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jl_Resposta11.setText("Resposta 10:");
+        jl_Resposta10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jl_Resposta10.setText("Resposta 10:");
 
         ta_Resposta10.setBackground(new java.awt.Color(204, 204, 204));
         ta_Resposta10.setColumns(20);
+        ta_Resposta10.setLineWrap(true);
         ta_Resposta10.setRows(5);
+        ta_Resposta10.setWrapStyleWord(true);
         ta_Resposta10.setFocusable(false);
-        jScrollPane62.setViewportView(ta_Resposta10);
+        jScrollPane51.setViewportView(ta_Resposta10);
 
-        bt_Salvar.setText("SALVAR");
-        bt_Salvar.addActionListener(new java.awt.event.ActionListener() {
+        bt_Avancar10.setText("AVANÇAR");
+        bt_Avancar10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_SalvarActionPerformed(evt);
+                bt_Avancar10ActionPerformed(evt);
             }
         });
 
-        jp_correcao11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jp_correcao10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jc_correcao10.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sem Resposta", "Resposta Errada", "Resposta Incompleta", "Resposta Correta" }));
         jc_correcao10.addItemListener(new java.awt.event.ItemListener() {
@@ -1846,94 +1907,95 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             }
         });
 
-        jLabel11.setText("Pontuação:");
+        jLabel10.setText("Pontuação:");
 
         jl_pt10.setText("-5 Pontos");
 
-        javax.swing.GroupLayout jp_correcao11Layout = new javax.swing.GroupLayout(jp_correcao11);
-        jp_correcao11.setLayout(jp_correcao11Layout);
-        jp_correcao11Layout.setHorizontalGroup(
-            jp_correcao11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_correcao11Layout.createSequentialGroup()
+        javax.swing.GroupLayout jp_correcao10Layout = new javax.swing.GroupLayout(jp_correcao10);
+        jp_correcao10.setLayout(jp_correcao10Layout);
+        jp_correcao10Layout.setHorizontalGroup(
+            jp_correcao10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_correcao10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jc_correcao10, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jl_pt10, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jp_correcao11Layout.setVerticalGroup(
-            jp_correcao11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_correcao11Layout.createSequentialGroup()
+        jp_correcao10Layout.setVerticalGroup(
+            jp_correcao10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_correcao10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jp_correcao11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jc_correcao10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jl_pt10))
+                .addGroup(jp_correcao10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jc_correcao10)
+                    .addComponent(jl_pt10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jl_Questao21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jl_Questao21.setText("Questão 10:");
+        jl_Questao20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jl_Questao20.setText("Questão 10:");
 
         ta_Questao10.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao10.setColumns(20);
+        ta_Questao10.setLineWrap(true);
         ta_Questao10.setRows(5);
+        ta_Questao10.setWrapStyleWord(true);
         ta_Questao10.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         ta_Questao10.setFocusable(false);
-        jScrollPane63.setViewportView(ta_Questao10);
+        jScrollPane61.setViewportView(ta_Questao10);
 
-        javax.swing.GroupLayout painel_qst11Layout = new javax.swing.GroupLayout(painel_qst11);
-        painel_qst11.setLayout(painel_qst11Layout);
-        painel_qst11Layout.setHorizontalGroup(
-            painel_qst11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painel_qst11Layout.createSequentialGroup()
+        javax.swing.GroupLayout painel_qst10Layout = new javax.swing.GroupLayout(painel_qst10);
+        painel_qst10.setLayout(painel_qst10Layout);
+        painel_qst10Layout.setHorizontalGroup(
+            painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painel_qst10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painel_qst11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane63, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane61)
-                    .addComponent(jScrollPane62)
-                    .addGroup(painel_qst11Layout.createSequentialGroup()
-                        .addGroup(painel_qst11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_Questao21)
-                            .addComponent(jl_Resposta11)
-                            .addComponent(jl_Questao20))
+                .addGroup(painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane61, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane50)
+                    .addComponent(jScrollPane51)
+                    .addGroup(painel_qst10Layout.createSequentialGroup()
+                        .addGroup(painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jl_Questao20)
+                            .addComponent(jl_Resposta10)
+                            .addComponent(jl_Questao10))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(painel_qst11Layout.createSequentialGroup()
-                        .addComponent(jp_correcao11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addComponent(bt_Voltar10)
+                    .addGroup(painel_qst10Layout.createSequentialGroup()
+                        .addComponent(jp_correcao10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bt_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bt_Voltar10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(bt_Avancar10)))
                 .addContainerGap())
         );
-        painel_qst11Layout.setVerticalGroup(
-            painel_qst11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst11Layout.createSequentialGroup()
+        painel_qst10Layout.setVerticalGroup(
+            painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jl_Questao21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane63, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jl_Questao20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane61, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jl_Resposta11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane62, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(painel_qst11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painel_qst11Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jp_correcao11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst11Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(painel_qst11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jl_Questao10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane50, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jl_Resposta10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane51, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jp_correcao10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painel_qst10Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_Voltar10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bt_Salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35))))
+                            .addComponent(bt_Avancar10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -1943,17 +2005,17 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
             .addGap(0, 616, Short.MAX_VALUE)
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painel_qst11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(17, Short.MAX_VALUE)
+                    .addComponent(painel_qst10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(17, Short.MAX_VALUE)))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 674, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel11Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(painel_qst11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(painel_qst10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -1980,12 +2042,12 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bt_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_CancelarActionPerformed
+    private void bt_Voltar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar1ActionPerformed
 
         if (JOptionPane.showConfirmDialog(null, "Deseja Cancelar?", "Cancelar", 2) == 0) {
             dispose();
         }
-    }//GEN-LAST:event_bt_CancelarActionPerformed
+    }//GEN-LAST:event_bt_Voltar1ActionPerformed
 
     private void bt_Avancar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar1ActionPerformed
 
@@ -2017,398 +2079,111 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     }//GEN-LAST:event_jc_correcao1ItemStateChanged
 
     private void bt_Voltar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar2ActionPerformed
-
-        tb_Questoes.setEnabledAt(1, false);
-        tb_Questoes.setEnabledAt(0, true);
-        tb_Questoes.setSelectedIndex(0);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar2ActionPerformed
 
     private void bt_Avancar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar2ActionPerformed
-
-        tb_Questoes.setEnabledAt(1, false);
-        tb_Questoes.setEnabledAt(2, true);
-        tb_Questoes.setSelectedIndex(2);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar2ActionPerformed
 
     private void jc_correcao2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao2ItemStateChanged
-
-        switch (jc_correcao2.getSelectedIndex()) {
-            case 0:
-                jl_pt2.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt2.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt2.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt2.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao2ItemStateChanged
 
-    private void bt_Voltarr3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltarr3ActionPerformed
-
-        tb_Questoes.setEnabledAt(2, false);
-        tb_Questoes.setEnabledAt(1, true);
-        tb_Questoes.setSelectedIndex(1);
-
-    }//GEN-LAST:event_bt_Voltarr3ActionPerformed
+    private void bt_Voltar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_Voltar3ActionPerformed
 
     private void bt_Avancar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar3ActionPerformed
-
-        tb_Questoes.setEnabledAt(2, false);
-        tb_Questoes.setEnabledAt(3, true);
-        tb_Questoes.setSelectedIndex(3);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar3ActionPerformed
 
     private void jc_correcao3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao3ItemStateChanged
-
-        switch (jc_correcao3.getSelectedIndex()) {
-            case 0:
-                jl_pt3.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt3.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt3.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt3.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao3ItemStateChanged
 
     private void bt_Voltar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar4ActionPerformed
-
-        tb_Questoes.setEnabledAt(3, false);
-        tb_Questoes.setEnabledAt(2, true);
-        tb_Questoes.setSelectedIndex(2);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar4ActionPerformed
 
     private void bt_Avancar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar4ActionPerformed
-
-        tb_Questoes.setEnabledAt(3, false);
-        tb_Questoes.setEnabledAt(4, true);
-        tb_Questoes.setSelectedIndex(4);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar4ActionPerformed
 
     private void jc_correcao4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao4ItemStateChanged
-
-        switch (jc_correcao4.getSelectedIndex()) {
-            case 0:
-                jl_pt4.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt4.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt4.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt4.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao4ItemStateChanged
 
     private void bt_Voltar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar5ActionPerformed
-
-        tb_Questoes.setEnabledAt(4, false);
-        tb_Questoes.setEnabledAt(3, true);
-        tb_Questoes.setSelectedIndex(3);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar5ActionPerformed
 
     private void bt_Avancar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar5ActionPerformed
-
-        tb_Questoes.setEnabledAt(4, false);
-        tb_Questoes.setEnabledAt(5, true);
-        tb_Questoes.setSelectedIndex(5);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar5ActionPerformed
 
     private void jc_correcao5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao5ItemStateChanged
-
-        switch (jc_correcao5.getSelectedIndex()) {
-            case 0:
-                jl_pt5.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt5.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt5.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt5.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao5ItemStateChanged
 
     private void bt_Voltar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar6ActionPerformed
-
-        tb_Questoes.setEnabledAt(5, false);
-        tb_Questoes.setEnabledAt(4, true);
-        tb_Questoes.setSelectedIndex(4);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar6ActionPerformed
 
     private void bt_Avancar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar6ActionPerformed
-
-        tb_Questoes.setEnabledAt(5, false);
-        tb_Questoes.setEnabledAt(6, true);
-        tb_Questoes.setSelectedIndex(6);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar6ActionPerformed
 
     private void jc_correcao6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao6ItemStateChanged
-
-        switch (jc_correcao6.getSelectedIndex()) {
-            case 0:
-                jl_pt6.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt6.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt6.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt6.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao6ItemStateChanged
 
     private void bt_Voltar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar7ActionPerformed
-
-        tb_Questoes.setEnabledAt(6, false);
-        tb_Questoes.setEnabledAt(5, true);
-        tb_Questoes.setSelectedIndex(5);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar7ActionPerformed
 
     private void bt_Avancar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar7ActionPerformed
-
-        tb_Questoes.setEnabledAt(6, false);
-        tb_Questoes.setEnabledAt(7, true);
-        tb_Questoes.setSelectedIndex(7);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar7ActionPerformed
 
     private void jc_correcao7ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao7ItemStateChanged
-
-        switch (jc_correcao7.getSelectedIndex()) {
-            case 0:
-                jl_pt7.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt7.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt7.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt7.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao7ItemStateChanged
 
     private void bt_Voltar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar8ActionPerformed
-
-        tb_Questoes.setEnabledAt(7, false);
-        tb_Questoes.setEnabledAt(6, true);
-        tb_Questoes.setSelectedIndex(6);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar8ActionPerformed
 
     private void bt_Avancar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar8ActionPerformed
-
-        tb_Questoes.setEnabledAt(7, false);
-        tb_Questoes.setEnabledAt(8, true);
-        tb_Questoes.setSelectedIndex(8);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar8ActionPerformed
 
     private void jc_correcao8ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao8ItemStateChanged
-
-        switch (jc_correcao8.getSelectedIndex()) {
-            case 0:
-                jl_pt8.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt8.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt8.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt8.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao8ItemStateChanged
 
     private void bt_Voltar9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar9ActionPerformed
-
-        tb_Questoes.setEnabledAt(8, false);
-        tb_Questoes.setEnabledAt(7, true);
-        tb_Questoes.setSelectedIndex(7);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar9ActionPerformed
 
     private void bt_Avancar9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar9ActionPerformed
-
-        tb_Questoes.setEnabledAt(8, false);
-        tb_Questoes.setEnabledAt(9, true);
-        tb_Questoes.setSelectedIndex(9);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Avancar9ActionPerformed
 
     private void jc_correcao9ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao9ItemStateChanged
-
-        switch (jc_correcao9.getSelectedIndex()) {
-            case 0:
-                jl_pt9.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt9.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt9.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt9.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao9ItemStateChanged
 
     private void bt_Voltar10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Voltar10ActionPerformed
-
-        tb_Questoes.setEnabledAt(9, false);
-        tb_Questoes.setEnabledAt(8, true);
-        tb_Questoes.setSelectedIndex(8);
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_bt_Voltar10ActionPerformed
 
-    private void bt_SalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SalvarActionPerformed
-
-        if (JOptionPane.showConfirmDialog(null, "Deseja Salvar?", "Salvar", 2) == 0) {
-
-            //RESPOTA 01
-            r = new Resposta();
-            r = listaRespostas.get(0);
-            r.setNota_Resposta(jc_correcao1.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 02
-            r = new Resposta();
-            r = listaRespostas.get(1);
-            r.setNota_Resposta(jc_correcao2.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 03
-            r = new Resposta();
-            r = listaRespostas.get(2);
-            r.setNota_Resposta(jc_correcao3.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 04
-            r = new Resposta();
-            r = listaRespostas.get(3);
-            r.setNota_Resposta(jc_correcao4.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 05
-            r = new Resposta();
-            r = listaRespostas.get(4);
-            r.setNota_Resposta(jc_correcao5.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 06
-            r = new Resposta();
-            r = listaRespostas.get(5);
-            r.setNota_Resposta(jc_correcao6.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 07
-            r = new Resposta();
-            r = listaRespostas.get(6);
-            r.setNota_Resposta(jc_correcao7.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 08
-            r = new Resposta();
-            r = listaRespostas.get(7);
-            r.setNota_Resposta(jc_correcao8.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 09
-            r = new Resposta();
-            r = listaRespostas.get(8);
-            r.setNota_Resposta(jc_correcao9.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            //RESPOTA 10
-            r = new Resposta();
-            r = listaRespostas.get(9);
-            r.setNota_Resposta(jc_correcao10.getSelectedItem().toString());
-            rwdao.AtualizarResposta(r);
-
-            JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
-            BuscarQuestoes();
-        }
-
-    }//GEN-LAST:event_bt_SalvarActionPerformed
+    private void bt_Avancar10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_Avancar10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_Avancar10ActionPerformed
 
     private void jc_correcao10ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jc_correcao10ItemStateChanged
-
-        switch (jc_correcao10.getSelectedIndex()) {
-            case 0:
-                jl_pt10.setText("-5 Pontos");
-                break;
-            case 1:
-                jl_pt10.setText("0 Pontos");
-                break;
-            case 2:
-                jl_pt10.setText("5 Pontos");
-                break;
-            case 3:
-                jl_pt10.setText("10 Pontos");
-                break;
-            default:
-                break;
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jc_correcao10ItemStateChanged
 
     public static void main(String args[]) {
@@ -2447,6 +2222,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_Avancar1;
+    private javax.swing.JButton bt_Avancar10;
     private javax.swing.JButton bt_Avancar2;
     private javax.swing.JButton bt_Avancar3;
     private javax.swing.JButton bt_Avancar4;
@@ -2455,19 +2231,18 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JButton bt_Avancar7;
     private javax.swing.JButton bt_Avancar8;
     private javax.swing.JButton bt_Avancar9;
-    private javax.swing.JButton bt_Cancelar;
-    private javax.swing.JButton bt_Salvar;
+    private javax.swing.JButton bt_Voltar1;
     private javax.swing.JButton bt_Voltar10;
     private javax.swing.JButton bt_Voltar2;
+    private javax.swing.JButton bt_Voltar3;
     private javax.swing.JButton bt_Voltar4;
     private javax.swing.JButton bt_Voltar5;
     private javax.swing.JButton bt_Voltar6;
     private javax.swing.JButton bt_Voltar7;
     private javax.swing.JButton bt_Voltar8;
     private javax.swing.JButton bt_Voltar9;
-    private javax.swing.JButton bt_Voltarr3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2504,6 +2279,8 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane47;
     private javax.swing.JScrollPane jScrollPane48;
     private javax.swing.JScrollPane jScrollPane49;
+    private javax.swing.JScrollPane jScrollPane50;
+    private javax.swing.JScrollPane jScrollPane51;
     private javax.swing.JScrollPane jScrollPane52;
     private javax.swing.JScrollPane jScrollPane53;
     private javax.swing.JScrollPane jScrollPane54;
@@ -2514,8 +2291,6 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane59;
     private javax.swing.JScrollPane jScrollPane60;
     private javax.swing.JScrollPane jScrollPane61;
-    private javax.swing.JScrollPane jScrollPane62;
-    private javax.swing.JScrollPane jScrollPane63;
     private javax.swing.JComboBox<String> jc_correcao1;
     private javax.swing.JComboBox<String> jc_correcao10;
     private javax.swing.JComboBox<String> jc_correcao2;
@@ -2527,6 +2302,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jc_correcao8;
     private javax.swing.JComboBox<String> jc_correcao9;
     private javax.swing.JLabel jl_Questao1;
+    private javax.swing.JLabel jl_Questao10;
     private javax.swing.JLabel jl_Questao11;
     private javax.swing.JLabel jl_Questao12;
     private javax.swing.JLabel jl_Questao13;
@@ -2538,7 +2314,6 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JLabel jl_Questao19;
     private javax.swing.JLabel jl_Questao2;
     private javax.swing.JLabel jl_Questao20;
-    private javax.swing.JLabel jl_Questao21;
     private javax.swing.JLabel jl_Questao3;
     private javax.swing.JLabel jl_Questao4;
     private javax.swing.JLabel jl_Questao5;
@@ -2547,7 +2322,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JLabel jl_Questao8;
     private javax.swing.JLabel jl_Questao9;
     private javax.swing.JLabel jl_Resposta1;
-    private javax.swing.JLabel jl_Resposta11;
+    private javax.swing.JLabel jl_Resposta10;
     private javax.swing.JLabel jl_Resposta2;
     private javax.swing.JLabel jl_Resposta3;
     private javax.swing.JLabel jl_Resposta4;
@@ -2567,7 +2342,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JLabel jl_pt8;
     private javax.swing.JLabel jl_pt9;
     private javax.swing.JPanel jp_correcao1;
-    private javax.swing.JPanel jp_correcao11;
+    private javax.swing.JPanel jp_correcao10;
     private javax.swing.JPanel jp_correcao2;
     private javax.swing.JPanel jp_correcao3;
     private javax.swing.JPanel jp_correcao4;
@@ -2577,7 +2352,7 @@ public class Tela_CorrigirRespostas extends javax.swing.JDialog {
     private javax.swing.JPanel jp_correcao8;
     private javax.swing.JPanel jp_correcao9;
     private javax.swing.JPanel painel_qst01;
-    private javax.swing.JPanel painel_qst11;
+    private javax.swing.JPanel painel_qst10;
     private javax.swing.JPanel painel_qst2;
     private javax.swing.JPanel painel_qst3;
     private javax.swing.JPanel painel_qst4;

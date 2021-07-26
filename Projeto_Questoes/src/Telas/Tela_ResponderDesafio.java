@@ -101,7 +101,9 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
 
         ta_questao_desafio1.setBackground(new java.awt.Color(204, 204, 204));
         ta_questao_desafio1.setColumns(20);
+        ta_questao_desafio1.setLineWrap(true);
         ta_questao_desafio1.setRows(5);
+        ta_questao_desafio1.setWrapStyleWord(true);
         ta_questao_desafio1.setEnabled(false);
         ta_questao_desafio1.setFocusable(false);
         jScrollPane1.setViewportView(ta_questao_desafio1);
@@ -109,7 +111,9 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         jLabel2.setText("Resposta 01:");
 
         ta_resposta_desafio1.setColumns(20);
+        ta_resposta_desafio1.setLineWrap(true);
         ta_resposta_desafio1.setRows(5);
+        ta_resposta_desafio1.setWrapStyleWord(true);
         jScrollPane2.setViewportView(ta_resposta_desafio1);
 
         bt_avancar1.setText("AVANÇAR");
@@ -177,7 +181,9 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
 
         ta_questao_desafio2.setBackground(new java.awt.Color(204, 204, 204));
         ta_questao_desafio2.setColumns(20);
+        ta_questao_desafio2.setLineWrap(true);
         ta_questao_desafio2.setRows(5);
+        ta_questao_desafio2.setWrapStyleWord(true);
         ta_questao_desafio2.setEnabled(false);
         ta_questao_desafio2.setFocusable(false);
         jScrollPane3.setViewportView(ta_questao_desafio2);
@@ -185,7 +191,9 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         jLabel4.setText("Resposta 02:");
 
         ta_resposta_desafio2.setColumns(20);
+        ta_resposta_desafio2.setLineWrap(true);
         ta_resposta_desafio2.setRows(5);
+        ta_resposta_desafio2.setWrapStyleWord(true);
         jScrollPane4.setViewportView(ta_resposta_desafio2);
 
         bt_avancar2.setText("AVANÇAR");
@@ -253,7 +261,9 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
 
         ta_questao_desafio3.setBackground(new java.awt.Color(204, 204, 204));
         ta_questao_desafio3.setColumns(20);
+        ta_questao_desafio3.setLineWrap(true);
         ta_questao_desafio3.setRows(5);
+        ta_questao_desafio3.setWrapStyleWord(true);
         ta_questao_desafio3.setEnabled(false);
         ta_questao_desafio3.setFocusable(false);
         jScrollPane5.setViewportView(ta_questao_desafio3);
@@ -261,7 +271,9 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
         jLabel6.setText("Resposta 03:");
 
         ta_resposta_desafio3.setColumns(20);
+        ta_resposta_desafio3.setLineWrap(true);
         ta_resposta_desafio3.setRows(5);
+        ta_resposta_desafio3.setWrapStyleWord(true);
         jScrollPane6.setViewportView(ta_resposta_desafio3);
 
         bt_salvar.setText("SALVAR");
@@ -384,7 +396,7 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
             if (JOptionPane.showConfirmDialog(null, "Deseja Salvar?", "Salvar", 2) == 0) {
 
                 ewedao.BuscarEquipe(e, ut.getEquipe_idEquipe());
-
+                
                 //RESPOSTA 01
                 rqdwdao.BuscarRespostaDesafio(e.getIdResposta_Desafio01(), rqd);
                 rqd.setCorpo_Resposta(ta_resposta_desafio1.getText());
@@ -402,6 +414,11 @@ public class Tela_ResponderDesafio extends javax.swing.JDialog {
                 rqd.setCorpo_Resposta(ta_resposta_desafio3.getText());
                 rqdwdao.AtualizarResposta(rqd);
                 rqd = new Resposta_Questao_Desafio();
+                
+                //ATUALIZAR STATUS EQUIPE
+                e.setIsDesafio(1);
+                ewedao.AtualizarStatusEquipe(e);
+                
                 JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
                 LimparCampos();
 

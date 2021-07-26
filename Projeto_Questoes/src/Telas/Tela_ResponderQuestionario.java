@@ -4,6 +4,7 @@ import Classes.Equipe;
 import Classes.Questao;
 import Classes.Resposta;
 import Classes.Usuario_Token;
+import Servicos.ContagemPontos;
 import Servicos.Utilitarios;
 import WebService.EquipeWebDAO;
 import WebService.QuestaoWebDAO;
@@ -35,7 +36,6 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         tb_Questoes.setEnabled(false);
         BloquearAreasTexto();
         BuscarQuestoes();
-        
     }
 
     private void GerarIcones() {
@@ -182,13 +182,52 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         //BUSCAR EQUIPE
         ewdao.BuscarEquipe(e, ut.getEquipe_idEquipe());
         ewdao.BuscarEquipe(er, e.getEquipe_Para_Resposta());
+        
+        if(er.getIsQuestionario()==0){
+            JOptionPane.showMessageDialog(null, "Equipe sem questionario para responder!");
+            LimparCampos();
+            bt_Avancar1.setEnabled(false);
+            rb01_qst1.setEnabled(false);
+            rb02_qst1.setEnabled(false);
+            rb03_qst1.setEnabled(false);
+            rb04_qst1.setEnabled(false);
+            rb05_qst1.setEnabled(false);
+            ta_Resposta1.setEnabled(false);
+            
+        }else{
 
         //QUESTAO 01
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe01(), q);
         ta_Questao1.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst1ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst1ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst1ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst1ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst1ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst1ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe01(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta1.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -196,8 +235,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe02(), q);
         ta_Questao2.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst2ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst2ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst2ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst2ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst2ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst2ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe02(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta2.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -205,8 +270,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe03(), q);
         ta_Questao3.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst3ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst3ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst3ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst3ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst3ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst3ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe03(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta3.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -214,8 +305,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe04(), q);
         ta_Questao4.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst4ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst4ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst4ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst4ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst4ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst4ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe04(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta4.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -223,8 +340,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe05(), q);
         ta_Questao5.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst5ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst5ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst5ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst5ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst5ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst5ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe05(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta5.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -232,8 +375,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe06(), q);
         ta_Questao6.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst6ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst6ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst6ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst6ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst6ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst6ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe06(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta6.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -241,8 +410,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe07(), q);
         ta_Questao7.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst7ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst7ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst7ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst7ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst7ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst7ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe07(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta7.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -250,8 +445,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe08(), q);
         ta_Questao8.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst8ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst8ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst8ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst8ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst8ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst8ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe08(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta8.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -259,8 +480,34 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe09(), q);
         ta_Questao9.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst9ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst9ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst9ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst9ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst9ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst9ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe09(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta9.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
 
@@ -268,11 +515,74 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         qwdao.BuscarQuestao(er.getIdQuestao_Equipe10(), q);
         ta_Questao10.setText(q.getCorpo_Questao());
         listaQuestoes.add(q);
+        //INSERIR ICONE QUALIFICACAO
+        switch (VerificarQualificacao(q.getQualificacao_Questao())) {
+            case 0:
+                rb01_qst10ActionPerformed(null);
+                break;
+            case 1:
+                rb01_qst10ActionPerformed(null);
+                break;
+            case 2:
+                rb02_qst10ActionPerformed(null);
+                break;
+            case 3:
+                rb03_qst10ActionPerformed(null);
+                break;
+            case 4:
+                rb04_qst10ActionPerformed(null);
+                break;
+            case 5:
+                rb05_qst10ActionPerformed(null);
+                break;
+            default:
+                break;
+        }
         q = new Questao();
         rwdao.BuscarResposta(e.getIdResposta_Equipe10(), r);
+        if(!r.getCorpo_Resposta().equals("SEM CONTEUDO")){
+        ta_Resposta10.setText(r.getCorpo_Resposta());
+        }
         listaRespostas.add(r);
         r = new Resposta();
-
+        }
+    }
+    
+    private int VerificarQualificacao(String qualificacao){
+        
+        int retorno;
+        switch (qualificacao){
+            
+            case "SEM CONTEUDO":
+                retorno = 0;
+                break;
+                
+            case "INRRELEVANTE":
+                retorno = 1;
+                break;
+                
+            case "POUCO RELEVANTE":
+                retorno = 2;
+                break;
+                
+            case "RELEVANTE":
+                retorno = 3;
+                break;
+                
+            case "MUITO RELEVANTE":
+                retorno = 4;
+                break;
+                
+            case "EXTREMAMENTE RELEVANTE":
+                retorno = 5;
+                break;
+            
+            default:
+                retorno = 0;
+                break;
+                
+        }
+        return retorno;
     }
 
     @SuppressWarnings("unchecked")
@@ -472,7 +782,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao1.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao1.setColumns(20);
         ta_Questao1.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao1.setLineWrap(true);
         ta_Questao1.setRows(5);
+        ta_Questao1.setWrapStyleWord(true);
         ta_Questao1.setFocusable(false);
         jScrollPane32.setViewportView(ta_Questao1);
 
@@ -480,7 +792,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta1.setText("Resposta 01:");
 
         ta_Resposta1.setColumns(20);
+        ta_Resposta1.setLineWrap(true);
         ta_Resposta1.setRows(5);
+        ta_Resposta1.setWrapStyleWord(true);
         jScrollPane33.setViewportView(ta_Resposta1);
 
         bt_Avancar1.setText("AVANÇAR");
@@ -649,7 +963,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao2.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao2.setColumns(20);
         ta_Questao2.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao2.setLineWrap(true);
         ta_Questao2.setRows(5);
+        ta_Questao2.setWrapStyleWord(true);
         ta_Questao2.setFocusable(false);
         jScrollPane34.setViewportView(ta_Questao2);
 
@@ -657,7 +973,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta2.setText("Resposta 02:");
 
         ta_Resposta2.setColumns(20);
+        ta_Resposta2.setLineWrap(true);
         ta_Resposta2.setRows(5);
+        ta_Resposta2.setWrapStyleWord(true);
         jScrollPane35.setViewportView(ta_Resposta2);
 
         bt_Avancar2.setText("AVANÇAR");
@@ -826,7 +1144,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao3.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao3.setColumns(20);
         ta_Questao3.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao3.setLineWrap(true);
         ta_Questao3.setRows(5);
+        ta_Questao3.setWrapStyleWord(true);
         ta_Questao3.setFocusable(false);
         jScrollPane36.setViewportView(ta_Questao3);
 
@@ -834,7 +1154,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta3.setText("Resposta 03:");
 
         ta_Resposta3.setColumns(20);
+        ta_Resposta3.setLineWrap(true);
         ta_Resposta3.setRows(5);
+        ta_Resposta3.setWrapStyleWord(true);
         jScrollPane37.setViewportView(ta_Resposta3);
 
         bt_Avancar3.setText("AVANÇAR");
@@ -1003,7 +1325,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao4.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao4.setColumns(20);
         ta_Questao4.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao4.setLineWrap(true);
         ta_Questao4.setRows(5);
+        ta_Questao4.setWrapStyleWord(true);
         ta_Questao4.setFocusable(false);
         jScrollPane38.setViewportView(ta_Questao4);
 
@@ -1011,7 +1335,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta4.setText("Resposta 04:");
 
         ta_Resposta4.setColumns(20);
+        ta_Resposta4.setLineWrap(true);
         ta_Resposta4.setRows(5);
+        ta_Resposta4.setWrapStyleWord(true);
         jScrollPane39.setViewportView(ta_Resposta4);
 
         bt_Avancar4.setText("AVANÇAR");
@@ -1180,7 +1506,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao5.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao5.setColumns(20);
         ta_Questao5.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao5.setLineWrap(true);
         ta_Questao5.setRows(5);
+        ta_Questao5.setWrapStyleWord(true);
         ta_Questao5.setFocusable(false);
         jScrollPane40.setViewportView(ta_Questao5);
 
@@ -1188,7 +1516,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta5.setText("Resposta 05:");
 
         ta_Resposta5.setColumns(20);
+        ta_Resposta5.setLineWrap(true);
         ta_Resposta5.setRows(5);
+        ta_Resposta5.setWrapStyleWord(true);
         jScrollPane41.setViewportView(ta_Resposta5);
 
         bt_Avancar5.setText("AVANÇAR");
@@ -1357,7 +1687,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao6.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao6.setColumns(20);
         ta_Questao6.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao6.setLineWrap(true);
         ta_Questao6.setRows(5);
+        ta_Questao6.setWrapStyleWord(true);
         ta_Questao6.setFocusable(false);
         jScrollPane42.setViewportView(ta_Questao6);
 
@@ -1534,7 +1866,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao7.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao7.setColumns(20);
         ta_Questao7.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao7.setLineWrap(true);
         ta_Questao7.setRows(5);
+        ta_Questao7.setWrapStyleWord(true);
         ta_Questao7.setFocusable(false);
         jScrollPane44.setViewportView(ta_Questao7);
 
@@ -1542,7 +1876,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta7.setText("Resposta 07:");
 
         ta_Resposta7.setColumns(20);
+        ta_Resposta7.setLineWrap(true);
         ta_Resposta7.setRows(5);
+        ta_Resposta7.setWrapStyleWord(true);
         jScrollPane45.setViewportView(ta_Resposta7);
 
         bt_Avancar7.setText("AVANÇAR");
@@ -1711,7 +2047,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao8.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao8.setColumns(20);
         ta_Questao8.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao8.setLineWrap(true);
         ta_Questao8.setRows(5);
+        ta_Questao8.setWrapStyleWord(true);
         ta_Questao8.setFocusable(false);
         jScrollPane46.setViewportView(ta_Questao8);
 
@@ -1719,7 +2057,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta8.setText("Resposta 08:");
 
         ta_Resposta8.setColumns(20);
+        ta_Resposta8.setLineWrap(true);
         ta_Resposta8.setRows(5);
+        ta_Resposta8.setWrapStyleWord(true);
         jScrollPane47.setViewportView(ta_Resposta8);
 
         bt_Avancar8.setText("AVANÇAR");
@@ -1888,7 +2228,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao9.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao9.setColumns(20);
         ta_Questao9.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao9.setLineWrap(true);
         ta_Questao9.setRows(5);
+        ta_Questao9.setWrapStyleWord(true);
         ta_Questao9.setFocusable(false);
         jScrollPane48.setViewportView(ta_Questao9);
 
@@ -1896,7 +2238,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta9.setText("Resposta 09:");
 
         ta_Resposta9.setColumns(20);
+        ta_Resposta9.setLineWrap(true);
         ta_Resposta9.setRows(5);
+        ta_Resposta9.setWrapStyleWord(true);
         jScrollPane49.setViewportView(ta_Resposta9);
 
         bt_Avancar9.setText("AVANÇAR");
@@ -2065,7 +2409,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         ta_Questao10.setBackground(new java.awt.Color(204, 204, 204));
         ta_Questao10.setColumns(20);
         ta_Questao10.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
+        ta_Questao10.setLineWrap(true);
         ta_Questao10.setRows(5);
+        ta_Questao10.setWrapStyleWord(true);
         ta_Questao10.setFocusable(false);
         jScrollPane50.setViewportView(ta_Questao10);
 
@@ -2073,7 +2419,9 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
         jl_Resposta10.setText("Resposta 10:");
 
         ta_Resposta10.setColumns(20);
+        ta_Resposta10.setLineWrap(true);
         ta_Resposta10.setRows(5);
+        ta_Resposta10.setWrapStyleWord(true);
         jScrollPane51.setViewportView(ta_Resposta10);
 
         bt_Salvar.setText("SALVAR");
@@ -2259,6 +2607,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao1.setText("INRRELEVANTE");
             jl_qualificacao1.setForeground(Color.RED);
+        } else if(ta_Questao1.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao1.setText("SEM QUESTAO");
+            jl_qualificacao1.setForeground(Color.RED);
+            rb01_qst1.setEnabled(false);
+            rb02_qst1.setEnabled(false);
+            rb03_qst1.setEnabled(false);
+            rb04_qst1.setEnabled(false);
+            rb05_qst1.setEnabled(false);
         } else {
             rb01_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst1.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -2369,6 +2730,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao2.setText("INRRELEVANTE");
             jl_qualificacao2.setForeground(Color.RED);
+        }else if(ta_Questao2.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao2.setText("SEM QUESTAO");
+            jl_qualificacao2.setForeground(Color.RED);
+            rb01_qst2.setEnabled(false);
+            rb02_qst2.setEnabled(false);
+            rb03_qst2.setEnabled(false);
+            rb04_qst2.setEnabled(false);
+            rb05_qst2.setEnabled(false);
         } else {
             rb01_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst2.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -2479,6 +2853,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao3.setText("INRRELEVANTE");
             jl_qualificacao3.setForeground(Color.RED);
+        } else if (ta_Questao3.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao3.setText("SEM QUESTAO");
+            jl_qualificacao3.setForeground(Color.RED);
+            rb01_qst3.setEnabled(false);
+            rb02_qst3.setEnabled(false);
+            rb03_qst3.setEnabled(false);
+            rb04_qst3.setEnabled(false);
+            rb05_qst3.setEnabled(false);
         } else {
             rb01_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst3.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -2589,6 +2976,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao4.setText("INRRELEVANTE");
             jl_qualificacao4.setForeground(Color.RED);
+        } else if (ta_Questao4.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao4.setText("SEM QUESTAO");
+            jl_qualificacao4.setForeground(Color.RED);
+            rb01_qst4.setEnabled(false);
+            rb02_qst4.setEnabled(false);
+            rb03_qst4.setEnabled(false);
+            rb04_qst4.setEnabled(false);
+            rb05_qst4.setEnabled(false);
         } else {
             rb01_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst4.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -2699,6 +3099,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao5.setText("INRRELEVANTE");
             jl_qualificacao5.setForeground(Color.RED);
+        } else if (ta_Questao5.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao5.setText("SEM QUESTAO");
+            jl_qualificacao5.setForeground(Color.RED);
+            rb01_qst5.setEnabled(false);
+            rb02_qst5.setEnabled(false);
+            rb03_qst5.setEnabled(false);
+            rb04_qst5.setEnabled(false);
+            rb05_qst5.setEnabled(false);
         } else {
             rb01_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst5.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -2809,6 +3222,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao6.setText("INRRELEVANTE");
             jl_qualificacao6.setForeground(Color.RED);
+        } else if (ta_Questao6.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao6.setText("SEM QUESTAO");
+            jl_qualificacao6.setForeground(Color.RED);
+            rb01_qst6.setEnabled(false);
+            rb02_qst6.setEnabled(false);
+            rb03_qst6.setEnabled(false);
+            rb04_qst6.setEnabled(false);
+            rb05_qst6.setEnabled(false);
         } else {
             rb01_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst6.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -2919,6 +3345,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao7.setText("INRRELEVANTE");
             jl_qualificacao7.setForeground(Color.RED);
+        } else if (ta_Questao7.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao7.setText("SEM QUESTAO");
+            jl_qualificacao7.setForeground(Color.RED);
+            rb01_qst7.setEnabled(false);
+            rb02_qst7.setEnabled(false);
+            rb03_qst7.setEnabled(false);
+            rb04_qst7.setEnabled(false);
+            rb05_qst7.setEnabled(false);
         } else {
             rb01_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst7.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -3029,6 +3468,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao8.setText("INRRELEVANTE");
             jl_qualificacao8.setForeground(Color.RED);
+        } else if(ta_Questao8.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao8.setText("SEM QUESTAO");
+            jl_qualificacao8.setForeground(Color.RED);
+            rb01_qst8.setEnabled(false);
+            rb02_qst8.setEnabled(false);
+            rb03_qst8.setEnabled(false);
+            rb04_qst8.setEnabled(false);
+            rb05_qst8.setEnabled(false);
         } else {
             rb01_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst8.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -3139,6 +3591,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao9.setText("INRRELEVANTE");
             jl_qualificacao9.setForeground(Color.RED);
+        } else if (ta_Questao9.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao9.setText("SEM QUESTAO");
+            jl_qualificacao9.setForeground(Color.RED);
+            rb01_qst9.setEnabled(false);
+            rb02_qst9.setEnabled(false);
+            rb03_qst9.setEnabled(false);
+            rb04_qst9.setEnabled(false);
+            rb05_qst9.setEnabled(false);
         } else {
             rb01_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst9.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -3249,6 +3714,19 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
             rb05_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
             jl_qualificacao10.setText("INRRELEVANTE");
             jl_qualificacao10.setForeground(Color.RED);
+        } else if(ta_Questao10.getText().endsWith("SEM CONTEUDO")){
+            rb01_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb02_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb03_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb04_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            rb05_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
+            jl_qualificacao10.setText("SEM QUESTAO");
+            jl_qualificacao10.setForeground(Color.RED);
+            rb01_qst10.setEnabled(false);
+            rb02_qst10.setEnabled(false);
+            rb03_qst10.setEnabled(false);
+            rb04_qst10.setEnabled(false);
+            rb05_qst10.setEnabled(false);
         } else {
             rb01_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/star.png")));
             rb02_qst10.setIcon(new ImageIcon(getClass().getResource("/Imagens/bomb.png")));
@@ -3652,7 +4130,15 @@ public class Tela_ResponderQuestionario extends javax.swing.JDialog {
                 q = listaQuestoes.get(9);
                 q.setQualificacao_Questao(jl_qualificacao10.getText());
                 qwdao.AtualizarQuestao(q);
-
+                
+                //ADICIONAR PONTUAÇÃO
+                ContagemPontos cp = new ContagemPontos();
+                cp.ContarPotuacaoQualificacaoQuestoes(listaQuestoes, er);
+                
+                //ATUALIZAR STATUS EQUIPE
+                e.setIsResposta(1);
+                ewdao.AtualizarStatusEquipe(e);
+                
                 JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
                 LimparCampos();
                 BuscarQuestoes();

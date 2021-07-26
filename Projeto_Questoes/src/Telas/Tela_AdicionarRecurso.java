@@ -3,6 +3,7 @@ package Telas;
 import Classes.Recurso;
 import Classes.Usuario_Token;
 import WebService.RecursoWebDAO;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class Tela_AdicionarRecurso extends javax.swing.JDialog {
@@ -21,6 +22,19 @@ public class Tela_AdicionarRecurso extends javax.swing.JDialog {
         ta_causa.setText("");
         cb_objeto.setSelectedIndex(0);
         cb_numero.setSelectedIndex(0);
+    }
+    
+    public void MudarValoresComboBox(){
+
+        if(cb_objeto.getSelectedItem().toString().equals("Questão Desafio") || cb_objeto.getSelectedItem().toString().equals("Resposta Desafio")){
+            String[] items = new String[] {"1","2","3"};
+            cb_numero.setModel(new DefaultComboBoxModel(items));
+        } else {
+            String[] items = new String[] {"1","2","3","4","5","6","7","8","9","10"};
+            cb_numero.setModel(new DefaultComboBoxModel(items));
+        }
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -48,15 +62,22 @@ public class Tela_AdicionarRecurso extends javax.swing.JDialog {
         jLabel1.setText("Objeto:");
 
         cb_objeto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Questão", "Resposta", "Questão Desafio", "Resposta Desafio" }));
+        cb_objeto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cb_objetoItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Numero:");
 
         cb_numero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 
-        jLabel3.setText("Causa:");
+        jLabel3.setText("Causa / Justificativa:");
 
         ta_causa.setColumns(20);
+        ta_causa.setLineWrap(true);
         ta_causa.setRows(5);
+        ta_causa.setWrapStyleWord(true);
         jScrollPane1.setViewportView(ta_causa);
 
         bt_salvar.setText("ENVIAR");
@@ -162,7 +183,7 @@ public class Tela_AdicionarRecurso extends javax.swing.JDialog {
             if (JOptionPane.showConfirmDialog(null, "Deseja salvar o Recurso?", "Salvar", 2) == 0) {
                 r.setObjeto(cb_objeto.getSelectedItem().toString() + "-" + cb_numero.getSelectedItem());
                 r.setCausa(ta_causa.getText());
-                r.setDeferimento("AGUARDANDO");
+                r.setDeferimento("Em Análise");
                 r.setSituacao(0);
                 r.setRodada_idRodada(ut.getRodada_idRodada());
                 r.setEquipe_idEquipe(ut.getEquipe_idEquipe());
@@ -183,6 +204,10 @@ public class Tela_AdicionarRecurso extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_bt_cancelarActionPerformed
+
+    private void cb_objetoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cb_objetoItemStateChanged
+        MudarValoresComboBox();
+    }//GEN-LAST:event_cb_objetoItemStateChanged
 
     public static void main(String args[]) {
 

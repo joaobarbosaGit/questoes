@@ -51,7 +51,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
     public Tela_AdicionarRodada(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tf_MaterialApoio.setEditable(false);
+        tf_MaterialApoio.setEnabled(false);
         ta_questoes.setEnabled(false);
         BloquearPaineis();
     }
@@ -99,6 +99,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
 
         tf_MaterialApoio.setText("");
         tf_QuantidadeTimes.setText("");
+        tf_Descricao.setText("");
         df_Fase1.setDate(null);
         df_Fase2.setDate(null);
         df_Fase3.setDate(null);
@@ -126,6 +127,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         ta_questaodesafio09.setText("");
         ta_questaodesafio10.setText("");
         cb_material.setSelected(false);
+        tf_MaterialApoio.setEnabled(false);
 
     }
 
@@ -278,6 +280,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         cb_material = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jSeparator13 = new javax.swing.JSeparator();
+        jLabel30 = new javax.swing.JLabel();
+        tf_Descricao = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
         ta_questoes = new javax.swing.JTabbedPane();
         painel_qst01 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -416,15 +421,27 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
 
         jLabel4.setText("Elaboração das Questões:");
 
+        df_Fase1.setDateFormatString("dd/MM/yyyy");
+
         jLabel5.setText("Respostas das Questões:");
+
+        df_Fase2.setDateFormatString("dd/MM/yyyy");
 
         jLabel6.setText("Resposta do Desafio:");
 
+        df_Fase3.setDateFormatString("dd/MM/yyyy");
+
         jLabel7.setText("Correção das Respostas:");
+
+        df_Fase4.setDateFormatString("dd/MM/yyyy");
 
         jLabel8.setText("Recurso:");
 
+        df_Fase5.setDateFormatString("dd/MM/yyyy");
+
         jLabel9.setText("Ranking:");
+
+        df_Fase6.setDateFormatString("dd/MM/yyyy");
 
         bt_cancelar.setText("CANCELAR");
         bt_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -440,9 +457,19 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Material de Apoio:");
+        cb_material.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_materialActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Ativo:");
 
         jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel30.setText("Material de Apoio:");
+
+        jLabel31.setText("Descrição:");
 
         javax.swing.GroupLayout p_dadosLayout = new javax.swing.GroupLayout(p_dados);
         p_dados.setLayout(p_dadosLayout);
@@ -453,33 +480,36 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                     .addGroup(p_dadosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
                             .addGroup(p_dadosLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tf_MaterialApoio, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(p_dadosLayout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cb_material)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(bt_Selecionar)))
-                                .addGap(55, 55, 55)
+                                .addGap(21, 21, 21)
+                                .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(p_dadosLayout.createSequentialGroup()
+                                            .addComponent(jLabel1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cb_material)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                                            .addComponent(bt_Selecionar))
+                                        .addComponent(jLabel30)
+                                        .addComponent(tf_Descricao)
+                                        .addComponent(tf_MaterialApoio))
+                                    .addComponent(jLabel31))
+                                .addGap(36, 36, 36)
                                 .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(p_dadosLayout.createSequentialGroup()
-                                        .addGap(56, 56, 56)
-                                        .addComponent(jLabel3))
+                                        .addGap(47, 47, 47)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tf_QuantidadeTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(p_dadosLayout.createSequentialGroup()
-                                        .addGap(36, 36, 36)
-                                        .addComponent(bt_cancelar)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tf_QuantidadeTimes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(p_dadosLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(bt_avancar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jSeparator1)))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bt_cancelar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(bt_avancar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(22, 22, 22))))))
                     .addGroup(p_dadosLayout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -514,29 +544,35 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
             .addGroup(p_dadosLayout.createSequentialGroup()
                 .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(p_dadosLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(tf_QuantidadeTimes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bt_avancar)
-                            .addComponent(bt_cancelar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(p_dadosLayout.createSequentialGroup()
+                        .addContainerGap(43, Short.MAX_VALUE)
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(p_dadosLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_dadosLayout.createSequentialGroup()
+                                .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(tf_QuantidadeTimes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(53, 53, 53))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_dadosLayout.createSequentialGroup()
+                                .addComponent(tf_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel30)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tf_MaterialApoio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cb_material, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bt_Selecionar)))
-                            .addGroup(p_dadosLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(bt_cancelar)
+                                .addComponent(bt_avancar))
+                            .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cb_material, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bt_Selecionar)))
+                        .addGap(37, 37, 37))
+                    .addGroup(p_dadosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jSeparator13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addGroup(p_dadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,7 +612,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel12.setText("Questão Desafio 01:");
 
         ta_questaodesafio01.setColumns(20);
+        ta_questaodesafio01.setLineWrap(true);
         ta_questaodesafio01.setRows(5);
+        ta_questaodesafio01.setWrapStyleWord(true);
         jScrollPane3.setViewportView(ta_questaodesafio01);
 
         bt_voltar01.setText("VOLTAR");
@@ -589,7 +627,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel13.setText("Gabarito:");
 
         ta_gabarito01.setColumns(20);
+        ta_gabarito01.setLineWrap(true);
         ta_gabarito01.setRows(5);
+        ta_gabarito01.setWrapStyleWord(true);
         jScrollPane4.setViewportView(ta_gabarito01);
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -637,7 +677,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst01Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator4)
                     .addComponent(jScrollPane3)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -648,7 +688,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel14.setText("Questão Desafio 02:");
 
         ta_questaodesafio02.setColumns(20);
+        ta_questaodesafio02.setLineWrap(true);
         ta_questaodesafio02.setRows(5);
+        ta_questaodesafio02.setWrapStyleWord(true);
         jScrollPane5.setViewportView(ta_questaodesafio02);
 
         bt_voltar02.setText("VOLTAR");
@@ -661,7 +703,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel15.setText("Gabarito:");
 
         ta_gabarito02.setColumns(20);
+        ta_gabarito02.setLineWrap(true);
         ta_gabarito02.setRows(5);
+        ta_gabarito02.setWrapStyleWord(true);
         jScrollPane6.setViewportView(ta_gabarito02);
 
         jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -709,7 +753,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst02Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator5)
                     .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -720,7 +764,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel16.setText("Questão Desafio 03:");
 
         ta_questaodesafio03.setColumns(20);
+        ta_questaodesafio03.setLineWrap(true);
         ta_questaodesafio03.setRows(5);
+        ta_questaodesafio03.setWrapStyleWord(true);
         jScrollPane7.setViewportView(ta_questaodesafio03);
 
         bt_voltar03.setText("VOLTAR");
@@ -733,7 +779,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel17.setText("Gabarito:");
 
         ta_gabarito03.setColumns(20);
+        ta_gabarito03.setLineWrap(true);
         ta_gabarito03.setRows(5);
+        ta_gabarito03.setWrapStyleWord(true);
         jScrollPane8.setViewportView(ta_gabarito03);
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -781,7 +829,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst03Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator6)
                     .addComponent(jScrollPane7)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -792,7 +840,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel18.setText("Questão Desafio 04:");
 
         ta_questaodesafio04.setColumns(20);
+        ta_questaodesafio04.setLineWrap(true);
         ta_questaodesafio04.setRows(5);
+        ta_questaodesafio04.setWrapStyleWord(true);
         jScrollPane9.setViewportView(ta_questaodesafio04);
 
         bt_voltar04.setText("VOLTAR");
@@ -805,7 +855,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel19.setText("Gabarito:");
 
         ta_gabarito04.setColumns(20);
+        ta_gabarito04.setLineWrap(true);
         ta_gabarito04.setRows(5);
+        ta_gabarito04.setWrapStyleWord(true);
         jScrollPane10.setViewportView(ta_gabarito04);
 
         jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -853,7 +905,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst04Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator7)
                     .addComponent(jScrollPane9)
-                    .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -864,7 +916,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel20.setText("Questão Desafio 05:");
 
         ta_questaodesafio05.setColumns(20);
+        ta_questaodesafio05.setLineWrap(true);
         ta_questaodesafio05.setRows(5);
+        ta_questaodesafio05.setWrapStyleWord(true);
         jScrollPane11.setViewportView(ta_questaodesafio05);
 
         bt_voltar05.setText("VOLTAR");
@@ -877,7 +931,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel21.setText("Gabarito:");
 
         ta_gabarito05.setColumns(20);
+        ta_gabarito05.setLineWrap(true);
         ta_gabarito05.setRows(5);
+        ta_gabarito05.setWrapStyleWord(true);
         jScrollPane12.setViewportView(ta_gabarito05);
 
         jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -925,7 +981,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst05Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator8)
                     .addComponent(jScrollPane11)
-                    .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -936,7 +992,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel22.setText("Questão Desafio 06:");
 
         ta_questaodesafio06.setColumns(20);
+        ta_questaodesafio06.setLineWrap(true);
         ta_questaodesafio06.setRows(5);
+        ta_questaodesafio06.setWrapStyleWord(true);
         jScrollPane13.setViewportView(ta_questaodesafio06);
 
         bt_voltar06.setText("VOLTAR");
@@ -949,7 +1007,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel23.setText("Gabarito:");
 
         ta_gabarito06.setColumns(20);
+        ta_gabarito06.setLineWrap(true);
         ta_gabarito06.setRows(5);
+        ta_gabarito06.setWrapStyleWord(true);
         jScrollPane14.setViewportView(ta_gabarito06);
 
         jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -997,7 +1057,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst06Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator9)
                     .addComponent(jScrollPane13)
-                    .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1008,7 +1068,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel24.setText("Questão Desafio 07:");
 
         ta_questaodesafio07.setColumns(20);
+        ta_questaodesafio07.setLineWrap(true);
         ta_questaodesafio07.setRows(5);
+        ta_questaodesafio07.setWrapStyleWord(true);
         jScrollPane15.setViewportView(ta_questaodesafio07);
 
         bt_voltar07.setText("VOLTAR");
@@ -1021,7 +1083,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel25.setText("Gabarito:");
 
         ta_gabarito07.setColumns(20);
+        ta_gabarito07.setLineWrap(true);
         ta_gabarito07.setRows(5);
+        ta_gabarito07.setWrapStyleWord(true);
         jScrollPane16.setViewportView(ta_gabarito07);
 
         jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -1069,7 +1133,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst07Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator10)
                     .addComponent(jScrollPane15)
-                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1080,7 +1144,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel26.setText("Questão Desafio 08:");
 
         ta_questaodesafio08.setColumns(20);
+        ta_questaodesafio08.setLineWrap(true);
         ta_questaodesafio08.setRows(5);
+        ta_questaodesafio08.setWrapStyleWord(true);
         jScrollPane17.setViewportView(ta_questaodesafio08);
 
         bt_voltar08.setText("VOLTAR");
@@ -1093,7 +1159,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel27.setText("Gabarito:");
 
         ta_gabarito08.setColumns(20);
+        ta_gabarito08.setLineWrap(true);
         ta_gabarito08.setRows(5);
+        ta_gabarito08.setWrapStyleWord(true);
         jScrollPane18.setViewportView(ta_gabarito08);
 
         jSeparator11.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -1141,7 +1209,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst08Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator11)
                     .addComponent(jScrollPane17)
-                    .addComponent(jScrollPane18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1152,7 +1220,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel28.setText("Questão Desafio 09:");
 
         ta_questaodesafio09.setColumns(20);
+        ta_questaodesafio09.setLineWrap(true);
         ta_questaodesafio09.setRows(5);
+        ta_questaodesafio09.setWrapStyleWord(true);
         jScrollPane19.setViewportView(ta_questaodesafio09);
 
         bt_voltar09.setText("VOLTAR");
@@ -1165,7 +1235,9 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel29.setText("Gabarito:");
 
         ta_gabarito09.setColumns(20);
+        ta_gabarito09.setLineWrap(true);
         ta_gabarito09.setRows(5);
+        ta_gabarito09.setWrapStyleWord(true);
         jScrollPane20.setViewportView(ta_gabarito09);
 
         jSeparator12.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -1213,7 +1285,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst09Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator12)
                     .addComponent(jScrollPane19)
-                    .addComponent(jScrollPane20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1228,11 +1300,15 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
         jLabel11.setText("Gabarito:");
 
         ta_questaodesafio10.setColumns(20);
+        ta_questaodesafio10.setLineWrap(true);
         ta_questaodesafio10.setRows(5);
+        ta_questaodesafio10.setWrapStyleWord(true);
         jScrollPane1.setViewportView(ta_questaodesafio10);
 
         ta_gabarito10.setColumns(20);
+        ta_gabarito10.setLineWrap(true);
         ta_gabarito10.setRows(5);
+        ta_gabarito10.setWrapStyleWord(true);
         jScrollPane2.setViewportView(ta_gabarito10);
 
         bt_salvardados.setText("SALVAR");
@@ -1285,7 +1361,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 .addGroup(painel_qst10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3)
                     .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1298,17 +1374,17 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ta_questoes)
-                    .addComponent(p_dados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(p_dados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ta_questoes))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(p_dados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p_dados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ta_questoes, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                .addComponent(ta_questoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1320,18 +1396,20 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
 
         if (tf_QuantidadeTimes.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe a Quantidade de Times!");
+        } else if (tf_Descricao.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Informe a Descrição");
         } else if (df_Fase1.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase 1!");
-        } else if (df_Fase2.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase 2!");
+            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase de Elaboração das Questões!");
+        }  else if (df_Fase2.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase de Respostas das Questões!");
         } else if (df_Fase3.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase 3!");
+            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase de Resposta do Desafio!");
         } else if (df_Fase4.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase 4!");
+            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase de Correção das Respostas!");
         } else if (df_Fase5.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase 5!");
+            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase de Recurso!");
         } else if (df_Fase6.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase 6!");
+            JOptionPane.showMessageDialog(null, "Informe a Data Limite da Fase de Ranking!");
         } else {
 
             if (cb_material.isSelected()) {
@@ -1349,117 +1427,11 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
 
     private void bt_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cancelarActionPerformed
 
-//            if (JOptionPane.showConfirmDialog(null, "Deseja Cancelar?", "Cancelar", 2) == 0) {
-//                LimparCampos();
-//                dispose();
-//            }
+            if (JOptionPane.showConfirmDialog(null, "Deseja Cancelar?", "Cancelar", 2) == 0) {
+                LimparCampos();
+                dispose();
+            }
 
- //DEFINIR EQUIPES RESPOSTA
-
-                ArrayList<Integer> listaEquipesQueRespostas = CriarlistaEquipesQueRespostas(Integer.parseInt(tf_QuantidadeTimes.getText()), ewdao.BuscarUltimoId());
-                ArrayList<Integer> listaEquipesParaRespostas = AdicionarListaEquipes(Integer.parseInt(tf_QuantidadeTimes.getText()), ewdao.BuscarUltimoId(), listaEquipesQueRespostas);
-               
-
-//ADICIONAR EQUIPES
-                int cont = 1;
-
-                while (listaEquipesParaRespostas.size() > 0) {
-
-                    System.out.println("Adicionando a Equipe: "+listaEquipesParaRespostas.size());
-                    System.out.println("------------------------------");
-                    e.setEquipe_Para_Resposta(listaEquipesParaRespostas.get(0));
-                    e.setEquipe_Que_Resposta(listaEquipesQueRespostas.get(0));
-                    e.setNomeEquipe("Equipe " + cont);
-                   
-                    //PREENCHER EQUPES
-                    ArrayList<Integer> listaQuestoes = new ArrayList<>();
-                    ArrayList<Integer> listaRespostas = new ArrayList<>();
-                    ArrayList<Integer> listaRespostasQuestaoDesafio = new ArrayList<>();
-                    ArrayList<Integer> listaIdQuestaoDesafios = GerarQuestaoDesafio();
-                    
-                    for (int i = 0; i < 10; i++) {
-
-                        //ADCIONAR QUESTÕES
-                        Questao q = new Questao();
-                        q.setCorpo_Questao("SEM CONTEUDO");
-                        q.setGabarito("SEM CONTEUDO");
-                        q.setQualificacao_Questao("SEM CONTEUDO");
-                        qwdao.AdicionaQuestao(q);
-                        listaQuestoes.add(qwdao.BuscarUltimoId());
-
-                        //ADICIONAR RESPOSTA
-                        Resposta re = new Resposta();
-                        re.setCorpo_Resposta("SEM CONTEUDO");
-                        re.setNota_Resposta("SEM CONTEUDO");
-                        rewdao.AdicionaResposta(re);
-                        listaRespostas.add(rewdao.BuscarUltimoId());
-
-                    }
-                    
-                    //ADICIONAR RESPOSTA-DESAFIO 01
-                        Resposta_Questao_Desafio rqd = new Resposta_Questao_Desafio();
-                        rqd.setCorpo_Resposta("SEM CONTEUDO");
-                        rqd.setNota_Questao_Desafio("SEM CONTEUDO");
-                        rqdwdao.AdicionaRespostaQuestaoDesafio(rqd);
-                        listaRespostasQuestaoDesafio.add(rqdwdao.BuscarUltimoId());
-                    
-                        
-                    //ADICIONAR RESPOSTA-DESAFIO 02
-                        rqd = new Resposta_Questao_Desafio();
-                        rqd.setCorpo_Resposta("SEM CONTEUDO");
-                        rqd.setNota_Questao_Desafio("SEM CONTEUDO");
-                        rqdwdao.AdicionaRespostaQuestaoDesafio(rqd);
-                        listaRespostasQuestaoDesafio.add(rqdwdao.BuscarUltimoId());
-                        
-                    //ADICIONAR RESPOSTA-DESAFIO 03
-                        rqd = new Resposta_Questao_Desafio();
-                        rqd.setCorpo_Resposta("SEM CONTEUDO");
-                        rqd.setNota_Questao_Desafio("SEM CONTEUDO");
-                        rqdwdao.AdicionaRespostaQuestaoDesafio(rqd);
-                        listaRespostasQuestaoDesafio.add(rqdwdao.BuscarUltimoId());    
-                    
-                    //LER ARRAYS
-                    e.setIdQuestao_Equipe01(listaQuestoes.get(0));
-                    e.setIdQuestao_Equipe02(listaQuestoes.get(1));
-                    e.setIdQuestao_Equipe03(listaQuestoes.get(2));
-                    e.setIdQuestao_Equipe04(listaQuestoes.get(3));
-                    e.setIdQuestao_Equipe05(listaQuestoes.get(4));
-                    e.setIdQuestao_Equipe06(listaQuestoes.get(5));
-                    e.setIdQuestao_Equipe07(listaQuestoes.get(6));
-                    e.setIdQuestao_Equipe08(listaQuestoes.get(7));
-                    e.setIdQuestao_Equipe09(listaQuestoes.get(8));
-                    e.setIdQuestao_Equipe10(listaQuestoes.get(9));
-                    e.setIdResposta_Equipe01(listaRespostas.get(0));
-                    e.setIdResposta_Equipe02(listaRespostas.get(1));
-                    e.setIdResposta_Equipe03(listaRespostas.get(2));
-                    e.setIdResposta_Equipe04(listaRespostas.get(3));
-                    e.setIdResposta_Equipe05(listaRespostas.get(4));
-                    e.setIdResposta_Equipe06(listaRespostas.get(5));
-                    e.setIdResposta_Equipe07(listaRespostas.get(6));
-                    e.setIdResposta_Equipe08(listaRespostas.get(7));
-                    e.setIdResposta_Equipe09(listaRespostas.get(8));
-                    e.setIdResposta_Equipe10(listaRespostas.get(9));
-                    e.setIdQuestao_Desafio01(listaIdQuestaoDesafios.get(0));
-                    e.setIdQuestao_Desafio02(listaIdQuestaoDesafios.get(1));
-                    e.setIdQuestao_Desafio03(listaIdQuestaoDesafios.get(2));
-                    e.setIdResposta_Desafio01(listaRespostasQuestaoDesafio.get(0));
-                    e.setIdResposta_Desafio02(listaRespostasQuestaoDesafio.get(1));
-                    e.setIdResposta_Desafio03(listaRespostasQuestaoDesafio.get(2));
-                    ewdao.AdicionaEquipe(e);
-                    listaEquipesParaRespostas.remove(0);
-                    listaEquipesQueRespostas.remove(0);
-
-                    //ADICIONAR USUARIO ALUNO
-                    ua.setEquipe_idEquipe(ewdao.BuscarUltimoId());
-                    ua.setRodada_idRodada(rwdao.BuscarUltimoId());
-                    ua.setUsuario("Equipe " + cont);
-                    ua.setSenha("admin");
-                    ua.setEmail("admin@equipe" + cont + "_rodada" + ua.getRodada_idRodada());
-                    uawdao.AdicionarUsuarioAluno(ua);
-                    cont++;
-                }
-                JOptionPane.showMessageDialog(null, "Salvo com Sucesso!");
- 
     }//GEN-LAST:event_bt_cancelarActionPerformed
 
     private void bt_SelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_SelecionarActionPerformed
@@ -1641,6 +1613,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                 r.setData_Fase5(Data5);
                 r.setData_Fase6(Data6);
                 r.setQuantidade_Times(Integer.parseInt(tf_QuantidadeTimes.getText()));
+                r.setDescricao(tf_Descricao.getText());
                 r.setIdUsuario_Professor(ut.getId());
 
                 //QUESTÃO 01
@@ -1797,6 +1770,12 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
                     e.setIdResposta_Desafio01(listaRespostasQuestaoDesafio.get(0));
                     e.setIdResposta_Desafio02(listaRespostasQuestaoDesafio.get(1));
                     e.setIdResposta_Desafio03(listaRespostasQuestaoDesafio.get(2));
+                    e.setPontuacao_Questoes(0);
+                    e.setPontuacao_Respostas(0);
+                    e.setPontuacao_Desafios(0);
+                    e.setIsQuestionario(0);
+                    e.setIsResposta(0);
+                    e.setIsDesafio(0);
                     ewdao.AdicionaEquipe(e);
                     listaEquipesParaRespostas.remove(0);
                     listaEquipesQueRespostas.remove(0);
@@ -1825,6 +1804,16 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_bt_salvardadosActionPerformed
+
+    private void cb_materialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_materialActionPerformed
+       
+        if(cb_material.isSelected()){
+            tf_MaterialApoio.setEnabled(true);
+        } else {
+            tf_MaterialApoio.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_cb_materialActionPerformed
 
     public static void main(String args[]) {
 
@@ -1915,6 +1904,8 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1985,6 +1976,7 @@ public class Tela_AdicionarRodada extends javax.swing.JDialog {
     private javax.swing.JTextArea ta_questaodesafio09;
     private javax.swing.JTextArea ta_questaodesafio10;
     private javax.swing.JTabbedPane ta_questoes;
+    private javax.swing.JTextField tf_Descricao;
     private javax.swing.JTextField tf_MaterialApoio;
     private javax.swing.JFormattedTextField tf_QuantidadeTimes;
     // End of variables declaration//GEN-END:variables

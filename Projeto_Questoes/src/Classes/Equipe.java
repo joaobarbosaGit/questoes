@@ -8,6 +8,12 @@ public class Equipe {
     private String NomeEquipe;
     private int Equipe_Para_Resposta;
     private int Equipe_Que_Resposta;
+    private int Pontuacao_Questoes;
+    private int Pontuacao_Respostas;
+    private int Pontuacao_Desafios;
+    private int isQuestionario;
+    private int isResposta;
+    private int isDesafio;
     private int idQuestao_Equipe01;
     private int idQuestao_Equipe02;
     private int idQuestao_Equipe03;
@@ -66,6 +72,54 @@ public class Equipe {
 
     public void setEquipe_Que_Resposta(int Equipe_Que_Resposta) {
         this.Equipe_Que_Resposta = Equipe_Que_Resposta;
+    }
+
+    public int getPontuacao_Questoes() {
+        return Pontuacao_Questoes;
+    }
+
+    public void setPontuacao_Questoes(int Pontuacao_Questoes) {
+        this.Pontuacao_Questoes = Pontuacao_Questoes;
+    }
+
+    public int getPontuacao_Respostas() {
+        return Pontuacao_Respostas;
+    }
+
+    public void setPontuacao_Respostas(int Pontuacao_Respostas) {
+        this.Pontuacao_Respostas = Pontuacao_Respostas;
+    }
+
+    public int getPontuacao_Desafios() {
+        return Pontuacao_Desafios;
+    }
+
+    public void setPontuacao_Desafios(int Pontuacao_Desafios) {
+        this.Pontuacao_Desafios = Pontuacao_Desafios;
+    }
+
+    public int getIsQuestionario() {
+        return isQuestionario;
+    }
+
+    public void setIsQuestionario(int isQuestionario) {
+        this.isQuestionario = isQuestionario;
+    }
+
+    public int getIsResposta() {
+        return isResposta;
+    }
+
+    public void setIsResposta(int isResposta) {
+        this.isResposta = isResposta;
+    }
+
+    public int getIsDesafio() {
+        return isDesafio;
+    }
+
+    public void setIsDesafio(int isDesafio) {
+        this.isDesafio = isDesafio;
     }
 
     public int getIdQuestao_Equipe01() {
@@ -276,5 +330,9 @@ public class Equipe {
         this.idResposta_Desafio03 = idResposta_Desafio03;
     }
    
+    @Override
+    public String toString() {
+        return getNomeEquipe(); 
+    }
     
 }
